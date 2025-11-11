@@ -6,10 +6,22 @@
                 <div class="login-container">
                     <el-form :model="loginForm" class="login-form">
                         <el-form-item class="username form-item" prop="account">
-                            <el-input class="input-item" v-model="loginForm.account" placeholder="使用邮箱或者手机号" />
+                            <el-input class="input-item" v-model="loginForm.account" placeholder="使用邮箱或者手机号">
+                                <template #prefix>
+                                    <el-icon>
+                                        <User />
+                                    </el-icon>
+                                </template>
+                            </el-input>
                         </el-form-item>
                         <el-form-item class="password form-item" prop="password">
-                            <el-input class="input-item" v-model="loginForm.password" placeholder="密码" />
+                            <el-input class="input-item" v-model="loginForm.password" placeholder="密码">
+                                <template #prefix>
+                                    <el-icon>
+                                        <Lock />
+                                    </el-icon>
+                                </template>
+                            </el-input>
                         </el-form-item>
                     </el-form>
                     <el-button class="login-btn" @click="Login">登 录</el-button>
@@ -27,6 +39,10 @@
                         <img src="@/assets/images/WeChat.png" alt="微信登录">
                     </el-button>
                 </div>
+                <div class="register-tip">
+                    <span>还没有账号？</span>
+                    <span class="register-link" @click="showRegisterDialog">去注册</span>
+                </div>
             </div>
         </div>
     </div>
@@ -37,6 +53,8 @@ import { User, Lock } from '@element-plus/icons-vue'
 import { reactive, ref } from 'vue'
 import { useRouter } from 'vue-router';
 import { useMusicStore } from '@/stores/MusicStore';
+
+import RegisterDialog from '@/views/Register/index.vue'
 
 const MusicStore = useMusicStore()
 
@@ -122,6 +140,21 @@ const Login = () => {
                 justify-content: center;
 
             }
+
+            .register-tip {
+                text-align: center;
+                margin-top: 20px;
+                font-size: 14px;
+
+                .register-link {
+                    color: #409EFF;
+                    cursor: pointer;
+
+                    &:hover {
+                        text-decoration: underline;
+                    }
+                }
+            }
         }
     }
 }
@@ -169,6 +202,10 @@ const Login = () => {
                         height: 48px;
                         font-size: 18px;
                         margin-top: 15px;
+                        width: 50%;
+                        display: block;
+                        margin-left: auto;
+                        margin-right: auto;
                     }
                 }
 
@@ -259,6 +296,10 @@ const Login = () => {
                         font-size: 18px;
                         background-color: rgb(59, 72, 89);
                         color: white;
+                        width: 50%;
+                        display: block;
+                        margin-left: auto;
+                        margin-right: auto;
 
                         &:hover {
                             background-color: rgb(49, 62, 79);
@@ -344,6 +385,9 @@ const Login = () => {
                         background-color: rgb(59, 72, 89);
                         color: white;
                         transition: all 0.3s ease;
+                        width: 50%;
+                        display: block;
+                        margin: auto;
 
                         &:hover {
                             background-color: rgb(49, 62, 79);
@@ -353,6 +397,10 @@ const Login = () => {
                 }
 
                 .divider {
+                    .line {
+                        border-bottom: 1px solid rgb(94, 98, 101);
+                    }
+
                     margin: 25px 0;
                 }
 
