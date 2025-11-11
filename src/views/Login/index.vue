@@ -46,6 +46,7 @@
             </div>
         </div>
     </div>
+    <RegisterDialog ref="Register"></RegisterDialog>
 </template>
 
 <script setup>
@@ -68,6 +69,11 @@ const loginForm = reactive({
 const Login = () => {
     router.push('/home')
     MusicStore.playAfterInteraction()
+}
+
+const Register = ref()
+const showRegisterDialog = () => {
+    Register.value.openDialog()
 }
 </script>
 
