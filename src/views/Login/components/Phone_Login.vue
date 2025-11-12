@@ -1,72 +1,62 @@
 <template>
-    <el-dialog v-model="dialogRegisterVisible" title="注册账号" class="register-dialog">
-        <el-form :model="RegisterForm" class="Register-form">
-            <el-form-item class="username form-item" prop="account">
-                <el-input class="input-item" v-model="RegisterForm.account" placeholder="使用邮箱或者手机号">
+    <el-dialog v-model="dialogPhoneVisible" title="手机验证码登录" class="Phone-dialog">
+        <el-form :model="PhoneForm" class="Phone-form">
+            <el-form-item class="userPhone form-item" prop="PhoneNumber">
+                <el-input class="input-item" v-model="PhoneForm.PhoneNumber" placeholder="输入手机号">
                     <template #prefix>
                         <el-icon>
-                            <User />
+                            <Phone />
                         </el-icon>
                     </template>
                 </el-input>
             </el-form-item>
-            <el-form-item class="password form-item" prop="password">
-                <el-input class="input-item" v-model="RegisterForm.password" placeholder="请输入密码" type="password">
+            <el-form-item class="userCode form-item" prop="Code">
+                <el-input class="input-item" v-model="PhoneForm.Code" placeholder="输入验证码">
                     <template #prefix>
                         <el-icon>
-                            <Lock />
+                            <Cherry />
                         </el-icon>
                     </template>
-                </el-input>
-            </el-form-item>
-            <el-form-item class="password form-item" prop="confirmPassword">
-                <el-input class="input-item" v-model="RegisterForm.confirmPassword" placeholder="再次输入密码"
-                    type="password">
-                    <template #prefix>
-                        <el-icon>
-                            <Lock />
-                        </el-icon>
+                    <template #suffix>
+                        <el-button>接收验证码</el-button>
                     </template>
                 </el-input>
             </el-form-item>
         </el-form>
         <template #footer>
             <span class="dialog-footer">
-                <el-button @click="dialogRegisterVisible = false" class="cancel-btn">取消</el-button>
-                <el-button type="primary" @click="GoRegister" class="register-btn">注册</el-button>
+                <el-button type="primary" @click="dialogPhoneVisible = false" class="cancel-btn">取消</el-button>
+                <el-button type="primary" @click="GoLogin" class="Login-btn">登录</el-button>
             </span>
         </template>
     </el-dialog>
 </template>
 
 <script setup>
+import { Phone, Cherry } from '@element-plus/icons-vue'
 import { reactive, ref } from 'vue';
-import { User, Lock } from '@element-plus/icons-vue'
 
-const RegisterForm = reactive({
-    account: '',
-    password: '',
-    confirmPassword: ''
+const PhoneForm = reactive({
+    PhoneNumber: '',
+    Code: ''
 })
 
-const dialogRegisterVisible = ref(false)
+const GoLogin = () => {
+    dialogPhoneVisible.value = false
+}
+
+const dialogPhoneVisible = ref(false)
 const openDialog = () => {
-    dialogRegisterVisible.value = true
+    dialogPhoneVisible.value = true
 }
-
-const GoRegister = () => {
-    console.log('注册信息:', RegisterForm)
-    // 注册成功后可以关闭对话框
-    dialogRegisterVisible.value = false
-}
-
 defineExpose({
     openDialog
 })
+
 </script>
 
 <style lang="scss" scoped>
-.Register-form {
+.Phone-form {
     .form-item {
         margin-bottom: 25px;
 
@@ -97,15 +87,38 @@ defineExpose({
             }
         }
     }
+
+    // 验证码按钮样式
+    .userCode {
+        :deep(.el-input__suffix) {
+            .code-btn {
+                border: none;
+                background: transparent;
+                color: rgb(59, 72, 89);
+                font-size: 14px;
+                padding: 0 10px;
+                height: 28px;
+                line-height: 28px;
+
+                &:hover {
+                    color: rgb(29, 67, 89);
+                    background: rgba(59, 72, 89, 0.1);
+                    border-radius: 14px;
+                }
+
+                &:active {
+                    background: rgba(59, 72, 89, 0.2);
+                }
+            }
+        }
+    }
 }
 
 .dialog-footer {
     display: flex;
     justify-content: center;
-    gap: 20px;
 
     :deep(.el-button) {
-        margin-left: 0;
         flex: 1;
     }
 
@@ -122,10 +135,9 @@ defineExpose({
         }
     }
 
-    .register-btn {
+    .Login-btn {
         border-radius: 25px;
-        padding: 12px 30px;
-        margin-left: 0;
+        padding: 12px 60px;
         font-size: 16px;
         background: linear-gradient(135deg, rgb(59, 72, 89) 0%, rgb(29, 67, 89) 100%);
         border: none;
@@ -140,7 +152,7 @@ defineExpose({
 
 // 手机端样式
 @media (max-width: 767px) {
-    .Register-form {
+    .Phone-form {
         .form-item {
             margin-bottom: 20px;
 
@@ -154,13 +166,23 @@ defineExpose({
                 }
             }
         }
+
+        // 验证码按钮在手机端的调整
+        .userCode {
+            :deep(.el-input__suffix) {
+                .code-btn {
+                    font-size: 12px;
+                    padding: 0 8px;
+                    white-space: nowrap;
+                }
+            }
+        }
     }
 
     .dialog-footer {
-        gap: 10px;
 
         .cancel-btn,
-        .register-btn {
+        .Login-btn {
             width: 50%;
             padding: 14px 30px;
             font-size: 16px;
@@ -170,7 +192,7 @@ defineExpose({
 
 // 平板端样式
 @media (min-width: 768px) and (max-width: 1024px) {
-    .Register-form {
+    .Phone-form {
         .form-item {
             .input-item {
                 :deep(.el-input__wrapper) {
@@ -183,15 +205,17 @@ defineExpose({
     .dialog-footer {
 
         .cancel-btn,
-        .register-btn {
-            padding: 12px 35px;
+        .Login-btn {
+            width: 50%;
+            padding: 14px 30px;
+            font-size: 16px;
         }
     }
 }
 
 // 桌面端样式
 @media (min-width: 1024px) {
-    .Register-form {
+    .Phone-form {
         .form-item {
             .input-item {
                 :deep(.el-input__wrapper) {
@@ -204,16 +228,18 @@ defineExpose({
     .dialog-footer {
 
         .cancel-btn,
-        .register-btn {
-            padding: 12px 40px;
+        .Login-btn {
+            width: 50%;
+            padding: 14px 30px;
             font-size: 16px;
         }
     }
 }
 </style>
 
+<!-- 全局样式，不受 scoped 限制 -->
 <style lang="scss">
-.register-dialog {
+.Phone-dialog {
     border-radius: 20px;
     overflow: hidden;
 
@@ -255,7 +281,7 @@ defineExpose({
 
 /* 手机端样式 */
 @media (max-width: 767px) {
-    .register-dialog {
+    .Phone-dialog {
         width: 90% !important;
         max-width: 400px;
         margin-top: 50%;
@@ -280,10 +306,10 @@ defineExpose({
 
 /* 平板端样式 */
 @media (min-width: 768px) and (max-width: 1024px) {
-    .register-dialog {
+    .Phone-dialog {
         width: 70% !important;
-        margin-top: 50%;
         max-width: 500px;
+        margin-top: 50%;
 
         .el-dialog__header {
             .el-dialog__title {
@@ -303,7 +329,7 @@ defineExpose({
 
 /* 桌面端样式 */
 @media (min-width: 1024px) {
-    .register-dialog {
+    .Phone-dialog {
         width: 30% !important;
         max-width: 450px;
         min-width: 400px;

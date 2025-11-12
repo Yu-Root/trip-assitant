@@ -32,7 +32,7 @@
                     <span class="line"></span>
                 </div>
                 <div class="other-login-wrapper">
-                    <el-button class="other-login-item">
+                    <el-button class="other-login-item" @click="showPhoneDialog">
                         <img src="@/assets/images/Phone.png" alt="手机登录">
                     </el-button>
                     <el-button class="other-login-item">
@@ -46,7 +46,8 @@
             </div>
         </div>
     </div>
-    <RegisterDialog ref="Register"></RegisterDialog>
+    <Register_Dialog ref="Register"></Register_Dialog>
+    <Phone_LoginDialog ref="Phone"></Phone_LoginDialog>
 </template>
 
 <script setup>
@@ -55,7 +56,8 @@ import { reactive, ref } from 'vue'
 import { useRouter } from 'vue-router';
 import { useMusicStore } from '@/stores/MusicStore';
 
-import RegisterDialog from '@/views/Register/index.vue'
+import Phone_LoginDialog from './components/Phone_Login.vue';
+import Register_Dialog from '@/views/Register/index.vue'
 
 const MusicStore = useMusicStore()
 
@@ -74,6 +76,10 @@ const Login = () => {
 const Register = ref()
 const showRegisterDialog = () => {
     Register.value.openDialog()
+}
+const Phone = ref()
+const showPhoneDialog = () => {
+    Phone.value.openDialog()
 }
 </script>
 
