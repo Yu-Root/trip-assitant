@@ -125,13 +125,6 @@ const GoToPage = (path) => {
             #80deea 100%);
 }
 
-//.cards-wrapper {
-//    display: flex;
-//    gap: 200px;
-//    flex-wrap: wrap;
-//    justify-content: center;
-//}
-
 .square-item {
     width: 250px;
     height: 250px;
