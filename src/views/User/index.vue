@@ -1,6 +1,11 @@
 <template>
     <div class="User-center">
         <div class="User-center-wrapper">
+            <div class="close-btn" @click="goToHome">
+                <el-icon>
+                    <Close />
+                </el-icon>
+            </div>
             <el-tabs v-model="activeName" class="tabs" :class="{ 'mobile-tabs': isMobile }">
                 <el-tab-pane label="用户设置" name="first">
                     <div class="account-info-wrapped">
@@ -66,15 +71,22 @@
 </template>
 
 <script setup>
-import { Plus } from '@element-plus/icons-vue'
+import { Plus, Close } from '@element-plus/icons-vue'
 import { onMounted, ref } from 'vue'
+import { useRouter } from 'vue-router'
 import { useUserStore } from '@/stores/UserStore'
 
 const userStore = useUserStore()
 
-const activeName = ref('first')
+const router = useRouter()
 
+const activeName = ref('first')
 const isMobile = ref(false)
+
+const goToHome = () => {
+    router.push('/home')
+}
+
 const checkScreenSize = () => {
     isMobile.value = window.innerWidth <= 767
 }
@@ -141,6 +153,37 @@ onMounted(() => {
         border-radius: 20px;
         box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
         overflow: hidden;
+        position: relative;
+
+        .close-btn {
+            position: absolute;
+            top: 12px;
+            right: 15px;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 10;
+            transition: all 0.3s ease;
+
+            .el-icon {
+                font-size: 20px;
+                color: #606266;
+
+                &:hover {
+                    color: orange;
+                }
+            }
+
+            &:hover {
+                background: rgba(0, 0, 0, 0.15);
+                transform: scale(1.2);
+            }
+        }
 
         .tabs {
             height: 100%;
@@ -209,6 +252,15 @@ onMounted(() => {
 
                 .account-save-button {
                     margin-left: 15px;
+
+                    .el-button {
+                        color: #fff;
+
+                        &:hover {
+                            color: black;
+                        }
+
+                    }
                 }
             }
         }
@@ -261,6 +313,17 @@ onMounted(() => {
             height: 100vh;
             border-radius: 0;
             background: rgba(255, 255, 255, 0.98);
+
+            .close-btn {
+                top: 10px;
+                right: 10px;
+                width: 36px;
+                height: 36px;
+
+                .el-icon {
+                    font-size: 18px;
+                }
+            }
 
             .tabs {
                 :deep(.el-tabs__content) {
