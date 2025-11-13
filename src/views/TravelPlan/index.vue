@@ -4,10 +4,10 @@
             <div class="trip-header">
                 <div class="trip-header-nav-wrapper">
                     <div class="trip-logo">
-                        <img src="../../assets/vue.svg" alt="">
+                        <img src="@/assets/vue.svg" alt="">
                     </div>
                     <div class="trip-nav">
-                        <span class="nav-span">目的地</span>
+                        <span class="nav-span">全国各地</span>
                         <span class="nav-span">旅行助手</span>
                     </div>
                 </div>
@@ -16,7 +16,14 @@
                 </div>
             </div>
         </header>
-        <div class="content"></div>
+        <div class="content">
+            <div class="content-header">
+                <img src="@/assets/images/breadcrumb.png" alt="">
+                <span class="header_desc">世界那么大，我想去看看</span>
+            </div>
+            <div class="banner">
+            </div>
+        </div>
         <footer class="trip-footer-wrapper">
             <div class="trip-footer">
                 <div class="trip-footer-nav-wrapper">
@@ -41,6 +48,7 @@
 .trip-container {
     display: flex;
     flex-direction: column;
+    background: #e8e8d8;
     min-height: 100vh;
 
     .trip-header-wrapper {
@@ -108,6 +116,12 @@
 
     .content {
         flex: 1;
+
+        .content-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
     }
 
     .trip-footer-wrapper {
@@ -145,7 +159,7 @@
     .trip-container {
         .trip-header-wrapper {
             .trip-header {
-                height: 60px;
+                height: 50px;
                 padding: 0 15px;
 
                 .trip-header-nav-wrapper {
@@ -176,7 +190,19 @@
         }
 
         .content {
-            padding-top: 60px;
+            padding-top: 50px;
+
+            img {
+                margin-right: 2%;
+                height: 40px;
+                margin-left: 5%;
+            }
+
+            .content-header {
+                margin-right: 1%;
+                font-size: 8px;
+                font-weight: 400;
+            }
         }
 
         .trip-footer-wrapper {
@@ -204,6 +230,22 @@
         .trip-header-wrapper {
             .trip-header {
                 padding: 0 30px;
+                height: 40px;
+            }
+        }
+
+        .content {
+            padding-top: 40px;
+
+            img {
+                height: 40px;
+                margin-left: 6%;
+            }
+
+            .content-header {
+                font-size: 12px;
+                font-weight: 400;
+                margin-right: 3%;
             }
         }
 
@@ -222,6 +264,30 @@
             .trip-header {
                 padding: 0 40px;
             }
+        }
+
+        .content {
+            padding-top: 34px;
+
+            img {
+                height: 40px;
+                margin-left: 10%;
+            }
+
+            .content-header {
+                margin-right: 3%;
+                font-size: 12px;
+                font-weight: 400;
+            }
+
+            .banner {
+                width: 85vw;
+                height: 50vh;
+                background-image: url('@/assets/images/Banner.png');
+                background-size: cover;
+                margin: 0 auto;
+            }
+
         }
 
         .trip-footer-wrapper {
