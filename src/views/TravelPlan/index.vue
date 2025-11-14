@@ -71,6 +71,17 @@
                     </div>
                 </div>
             </div>
+            <div class="content-body">
+                <div class="search">
+                    <el-input placeholder="大家都在搜：北京">
+                        <template #prefix>
+                            <el-icon>
+                                <Search />
+                            </el-icon>
+                        </template>
+                    </el-input>
+                </div>
+            </div>
         </div>
         <footer class="trip-footer-wrapper">
             <div class="trip-footer">
@@ -89,7 +100,7 @@
 </template>
 
 <script setup>
-import { Position } from '@element-plus/icons-vue'
+import { Position, Search } from '@element-plus/icons-vue'
 
 </script>
 
@@ -170,6 +181,7 @@ import { Position } from '@element-plus/icons-vue'
             display: flex;
             justify-content: space-between;
             align-items: center;
+            margin-bottom: 10px;
         }
     }
 
@@ -241,16 +253,121 @@ import { Position } from '@element-plus/icons-vue'
         .content {
             padding-top: 50px;
 
-            img {
-                margin-right: 2%;
-                height: 40px;
-                margin-left: 5%;
+            .content-header {
+                img {
+                    margin-left: 2%;
+                    height: 40px;
+                    margin-left: 5%;
+                }
+
+                .header_desc {
+                    margin-right: 5%;
+                    font-size: 8px;
+                    font-weight: 400;
+                }
             }
 
-            .content-header {
-                margin-right: 1%;
-                font-size: 8px;
-                font-weight: 400;
+            .banner {
+                width: 95vw;
+                height: auto;
+                min-height: 40vh;
+                background-image: url('@/assets/images/Banner.png');
+                background-size: cover;
+                background-position: center;
+                margin: 10px auto;
+                border-radius: 8px;
+
+                .banner-wrapper {
+                    padding: 20px 15px;
+
+                    .title {
+                        text-align: center;
+                        font-size: 20px;
+                        font-weight: 600;
+                        color: #fff;
+                        margin: 0;
+
+                        .sub {
+                            font-size: 20px;
+                            font-weight: 400;
+                            color: #fff;
+                            display: block;
+                        }
+                    }
+
+                    .banner-desc {
+                        text-align: center;
+                        margin-top: 8px;
+                        font-size: 14px;
+                        color: #fff;
+                    }
+
+                    .button {
+                        text-align: center;
+                        margin-top: 20px;
+
+                        .el-button {
+                            width: 200px;
+                            height: 40px;
+                            border-radius: 8px;
+
+                            .btn-desc {
+                                color: #375c48;
+                                font-size: 14px;
+                                font-weight: 600;
+                            }
+                        }
+                    }
+
+                    .list {
+                        display: flex;
+                        flex-direction: column;
+                        gap: 15px;
+                        margin-top: 25px;
+                        padding: 0 10px;
+                        align-items: center;
+
+                        .item {
+                            width: 80%;
+                            margin: 0 auto;
+                            height: 80px;
+                            text-decoration: none;
+                            background: linear-gradient(180deg, #fff, #d8f2e4);
+                            box-shadow: 0 5px 15px rgba(116, 129, 52, 0.4);
+                            border-radius: 8px;
+                            display: flex;
+                            flex-direction: column;
+                            justify-content: center;
+                            position: relative;
+
+                            .list-title {
+                                font-size: 14px;
+                                font-weight: 600;
+                                color: #375c48;
+                                line-height: 14px;
+                                margin-left: 20px;
+                            }
+
+                            .list-sub {
+                                margin-top: 8px;
+                                font-size: 11px;
+                                color: #3abd79;
+                                line-height: 11px;
+                                margin-left: 20px;
+                            }
+
+                            img {
+                                position: absolute;
+                                top: 50%;
+                                right: 20px;
+                                transform: translateY(-50%);
+                                width: 50px;
+                                height: 50px;
+                                object-fit: contain;
+                            }
+                        }
+                    }
+                }
             }
         }
 
@@ -286,15 +403,115 @@ import { Position } from '@element-plus/icons-vue'
         .content {
             padding-top: 40px;
 
-            img {
-                height: 40px;
-                margin-left: 6%;
+            .content-header {
+                img {
+                    height: 40px;
+                    margin-left: 6%;
+                }
+
+                .header_desc {
+                    font-size: 12px;
+                    font-weight: 400;
+                    margin-right: 10%;
+                }
             }
 
-            .content-header {
-                font-size: 12px;
-                font-weight: 400;
-                margin-right: 3%;
+            .banner {
+                width: 90vw;
+                height: 45vh;
+                background-image: url('@/assets/images/Banner.png');
+                background-size: cover;
+                background-position: center;
+                margin: 15px auto;
+                border-radius: 10px;
+
+                .banner-wrapper {
+                    padding: 30px;
+
+                    .title {
+                        margin-left: 50px;
+                        font-size: 24px;
+                        font-weight: 600;
+                        color: #fff;
+
+                        .sub {
+                            font-size: 24px;
+                            font-weight: 400;
+                            color: #fff;
+                        }
+                    }
+
+                    .banner-desc {
+                        margin-top: 6px;
+                        margin-left: 50px;
+                        font-size: 16px;
+                        color: #fff;
+                    }
+
+                    .button {
+                        margin-left: 50px;
+                        margin-top: 30px;
+
+                        .el-button {
+                            width: 250px;
+                            height: 45px;
+                            border-radius: 8px;
+
+                            .btn-desc {
+                                color: #375c48;
+                                font-size: 16px;
+                                font-weight: 600;
+                            }
+                        }
+                    }
+
+                    .list {
+                        display: flex;
+                        gap: 20px;
+                        margin-top: 35px;
+                        justify-content: center;
+                        flex-wrap: wrap;
+
+                        .item {
+                            width: 220px;
+                            height: 85px;
+                            text-decoration: none;
+                            background: linear-gradient(180deg, #fff, #d8f2e4);
+                            box-shadow: 0 8px 18px rgba(116, 129, 52, 0.4);
+                            border-radius: 8px;
+                            display: flex;
+                            flex-direction: column;
+                            justify-content: center;
+                            position: relative;
+
+                            .list-title {
+                                font-size: 15px;
+                                font-weight: 600;
+                                color: #375c48;
+                                line-height: 15px;
+                                margin-left: 25px;
+                            }
+
+                            .list-sub {
+                                margin-top: 8px;
+                                font-size: 11px;
+                                color: #3abd79;
+                                line-height: 11px;
+                                margin-left: 25px;
+                            }
+
+                            img {
+                                position: absolute;
+                                top: 50%;
+                                right: 20px;
+                                transform: translateY(-50%);
+                                width: 55px;
+                                height: 55px;
+                                object-fit: contain;
+                            }
+                        }
+                    }
+                }
             }
         }
 
@@ -324,7 +541,7 @@ import { Position } from '@element-plus/icons-vue'
             }
 
             .content-header {
-                margin-right: 3%;
+                margin-right: 10%;
                 font-size: 12px;
                 font-weight: 400;
             }
@@ -337,7 +554,10 @@ import { Position } from '@element-plus/icons-vue'
                 margin: 0 auto;
 
                 .banner-wrapper {
+                    padding-top: 20px;
+
                     .title {
+                        margin-left: 75px;
                         font-size: 28px;
                         font-weight: 600;
                         color: #fff;
@@ -351,14 +571,19 @@ import { Position } from '@element-plus/icons-vue'
 
                     .banner-desc {
                         margin-top: 4px;
+                        margin-left: 75px;
                         font-size: 18px;
                         color: #fff;
                     }
 
                     .button {
+                        margin-left: 75px;
+                        margin-top: 40px;
+
                         .el-button {
                             width: 300px;
                             height: 50px;
+                            border-radius: 10px;
                             transition: all 0.2s ease;
 
                             &:hover {
@@ -381,7 +606,7 @@ import { Position } from '@element-plus/icons-vue'
                     .list {
                         display: flex;
                         gap: 40px;
-                        margin-top: 60px;
+                        margin-top: 40px;
                         justify-content: center;
 
                         .item {
@@ -395,6 +620,12 @@ import { Position } from '@element-plus/icons-vue'
                             flex-direction: column;
                             justify-content: center;
                             position: relative;
+                            transition: all 0.2s ease;
+
+                            &:hover {
+                                transform: translateY(-2px);
+                            }
+
                             //align-items: center;
 
                             .list-title {
