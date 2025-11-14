@@ -589,6 +589,113 @@ import { Position, Search } from '@element-plus/icons-vue'
                     }
                 }
             }
+
+            .content-body {
+                .search {
+                    position: relative;
+                    height: 50px;
+                    margin-bottom: 10px;
+
+                    :deep(.el-input__wrapper) {
+                        position: absolute;
+                        left: 50%;
+                        transform: translateX(-50%);
+                        width: 80%;
+                        height: 35px;
+                        border-radius: 20px;
+                    }
+                }
+
+                .diver {
+                    margin: 15px 0;
+
+                    .divider-text {
+                        font-size: 14px;
+                        width: 80px;
+                    }
+                }
+
+                .HotCity {
+                    padding: 0 10px;
+                    margin-top: 20px;
+
+                    .el-row {
+                        margin-bottom: 15px;
+                        display: flex;
+
+                        &:last-child {
+                            margin-bottom: 30px;
+                        }
+                    }
+
+                    .el-col {
+                        width: 100%;
+                        margin-bottom: 15px;
+                    }
+
+                    .city-card {
+                        border-radius: 15px;
+                        overflow: hidden;
+                        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+                        transition: all 0.3s ease;
+                        background-color: #fff;
+
+                        &:hover {
+                            transform: translateY(-3px);
+                            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+                        }
+                    }
+
+                    .city-img {
+                        position: relative;
+                        height: 150px;
+                        overflow: hidden;
+
+                        .city-pic {
+                            width: 100%;
+                            height: 100%;
+                            object-fit: cover;
+                        }
+
+                        .city-overlay {
+                            position: absolute;
+                            bottom: 0;
+                            left: 0;
+                            right: 0;
+                            height: 40px;
+                            background: linear-gradient(transparent, rgba(0, 0, 0, 0.5));
+                        }
+                    }
+
+                    .city-info {
+                        padding: 15px 12px;
+                    }
+
+                    .grid-content {
+                        font-size: 18px;
+                        font-weight: 600;
+                        color: #333;
+                        margin-bottom: 8px;
+                        justify-content: flex-start;
+                        padding: 0;
+                        height: auto;
+                    }
+
+                    .city-desc-wrapper {
+                        min-height: 40px;
+
+                        .city-desc {
+                            color: #666;
+                            font-size: 12px;
+                            line-height: 1.5;
+                            display: -webkit-box;
+                            -webkit-line-clamp: 2;
+                            -webkit-box-orient: vertical;
+                            overflow: hidden;
+                        }
+                    }
+                }
+            }
         }
 
         .trip-footer-wrapper {
@@ -729,6 +836,118 @@ import { Position, Search } from '@element-plus/icons-vue'
                                 height: 55px;
                                 object-fit: contain;
                             }
+                        }
+                    }
+                }
+            }
+
+            .content-body {
+                margin-top: 20px;
+
+                .search {
+                    position: relative;
+                    height: 55px;
+                    margin-bottom: 10px;
+
+                    :deep(.el-input__wrapper) {
+                        position: absolute;
+                        left: 50%;
+                        transform: translateX(-50%);
+                        width: 60%;
+                        height: 38px;
+                        border-radius: 20px;
+                    }
+                }
+
+                .diver {
+                    margin: 20px 0;
+
+                    .divider-text {
+                        font-size: 16px;
+                        width: 90px;
+                    }
+                }
+
+                .HotCity {
+                    padding: 0 40px;
+                    margin-top: 25px;
+
+                    .el-row {
+                        margin-bottom: 25px;
+                        display: flex;
+                        flex-wrap: wrap;
+
+                        &:last-child {
+                            margin-bottom: 40px;
+                        }
+                    }
+
+                    .el-col {
+                        width: 50%;
+                        margin-bottom: 20px;
+                    }
+
+                    .city-card {
+                        border-radius: 18px;
+                        overflow: hidden;
+                        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+                        transition: all 0.3s ease;
+                        background-color: #fff;
+                        cursor: pointer;
+                        margin: 0 10px;
+
+                        &:hover {
+                            transform: translateY(-4px);
+                            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+                        }
+                    }
+
+                    .city-img {
+                        position: relative;
+                        height: 180px;
+                        overflow: hidden;
+
+                        .city-pic {
+                            width: 100%;
+                            height: 100%;
+                            object-fit: cover;
+                        }
+
+                        .city-overlay {
+                            position: absolute;
+                            bottom: 0;
+                            left: 0;
+                            right: 0;
+                            height: 50px;
+                            background: linear-gradient(transparent, rgba(0, 0, 0, 0.5));
+                        }
+                    }
+
+                    .city-info {
+                        padding: 18px 15px;
+                    }
+
+                    .grid-content {
+                        font-size: 19px;
+                        font-weight: 600;
+                        color: #333;
+                        margin-bottom: 8px;
+                        justify-content: flex-start;
+                        padding: 0;
+                        height: auto;
+                    }
+
+                    .city-desc-wrapper {
+                        min-height: 45px;
+
+                        .city-desc {
+                            color: #666;
+                            font-size: 13px;
+                            line-height: 1.5;
+                            display: -webkit-box;
+                            line-clamp: 2;
+                            -webkit-box-orient: vertical;
+                            overflow: hidden;
                         }
                     }
                 }
@@ -973,7 +1192,7 @@ import { Position, Search } from '@element-plus/icons-vue'
                             font-size: 14px;
                             line-height: 1.6;
                             display: -webkit-box;
-                            -webkit-line-clamp: 2;
+                            line-clamp: 2;
                             -webkit-box-orient: vertical;
                             overflow: hidden;
                         }
