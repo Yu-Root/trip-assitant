@@ -22,6 +22,54 @@
                 <span class="header_desc">世界那么大，我想去看看</span>
             </div>
             <div class="banner">
+                <div class="banner-wrapper">
+                    <div class="title">
+                        轻轻松松搞定
+                        <span class="sub">你的攻略</span>
+                    </div>
+                    <div class="banner-desc">
+                        让你再也不必为旅行规划而烦恼
+                    </div>
+                    <div class="button">
+                        <el-button>
+                            <span class="btn-desc">创建新的行程</span>
+                            <template #icon>
+                                <el-icon style="margin-right: 4px;">
+                                    <Position />
+                                </el-icon>
+                            </template>
+                        </el-button>
+                    </div>
+                    <div class="list">
+                        <a href="https://zhuanlan.zhihu.com/p/32854215834" target="_blank" class="item">
+                            <div class="list-title">
+                                全国景点推荐
+                            </div>
+                            <div class="list-sub">
+                                全国名胜景点大推荐
+                            </div>
+                            <img src="@/assets/images/view.svg" alt="">
+                        </a>
+                        <a href="Booking.com" target="_blank" class="item">
+                            <div class="list-title">
+                                全国酒店信息
+                            </div>
+                            <div class="list-sub">
+                                全国酒店信息预订情况
+                            </div>
+                            <img src="@/assets/images/booking.jpg" alt="">
+                        </a>
+                        <a href="https://www.12306.cn/index/" target="_blank" class="item">
+                            <div class="list-title">
+                                全国车票情况
+                            </div>
+                            <div class="list-sub">
+                                全国车票购买情况和预订
+                            </div>
+                            <img src="@/assets/images/plane.jpg" alt="">
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
         <footer class="trip-footer-wrapper">
@@ -41,6 +89,7 @@
 </template>
 
 <script setup>
+import { Position } from '@element-plus/icons-vue'
 
 </script>
 
@@ -286,6 +335,97 @@
                 background-image: url('@/assets/images/Banner.png');
                 background-size: cover;
                 margin: 0 auto;
+
+                .banner-wrapper {
+                    .title {
+                        font-size: 28px;
+                        font-weight: 600;
+                        color: #fff;
+
+                        .sub {
+                            font-size: 28px;
+                            font-weight: 400;
+                            color: #fff;
+                        }
+                    }
+
+                    .banner-desc {
+                        margin-top: 4px;
+                        font-size: 18px;
+                        color: #fff;
+                    }
+
+                    .button {
+                        .el-button {
+                            width: 300px;
+                            height: 50px;
+                            transition: all 0.2s ease;
+
+                            &:hover {
+                                transform: translateY(-2px);
+                            }
+
+                            .btn-desc {
+                                color: #375c48;
+                                font-size: 18px;
+                                font-weight: 600;
+                                transition: all 0.2s ease;
+
+                                &:hover {
+                                    color: #80deea;
+                                }
+                            }
+                        }
+                    }
+
+                    .list {
+                        display: flex;
+                        gap: 40px;
+                        margin-top: 60px;
+                        justify-content: center;
+
+                        .item {
+                            width: 360px;
+                            height: 90px;
+                            text-decoration: none;
+                            background: linear-gradient(180deg, #fff, #d8f2e4);
+                            box-shadow: 0 10px 20px rgba(116, 129, 52, 0.5);
+                            border-radius: 8px;
+                            display: flex;
+                            flex-direction: column;
+                            justify-content: center;
+                            position: relative;
+                            //align-items: center;
+
+                            .list-title {
+                                font-size: 16px;
+                                font-weight: 600;
+                                color: #375c48;
+                                line-height: 16px;
+                                margin-left: 30px;
+                            }
+
+                            .list-sub {
+                                margin-top: 10px;
+                                font-size: 12px;
+                                color: #3abd79;
+                                line-height: 12px;
+                                margin-left: 30px;
+                            }
+
+                            img {
+                                position: absolute;
+                                top: 13px;
+                                right: 30px;
+                                width: 64px;
+                                height: 64px;
+                                object-fit: contain;
+                            }
+
+                        }
+                    }
+                }
+
             }
 
         }
