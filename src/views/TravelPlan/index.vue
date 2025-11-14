@@ -18,7 +18,7 @@
         </header>
         <div class="content">
             <div class="content-header">
-                <img src="@/assets/images/breadcrumb.png" alt="">
+                <img class="breadcrumb-img" src="@/assets/images/breadcrumb.png" alt="">
                 <span class="header_desc">世界那么大，我想去看看</span>
             </div>
             <div class="banner">
@@ -80,6 +80,187 @@
                             </el-icon>
                         </template>
                     </el-input>
+                </div>
+                <div class="diver">
+                    <span class="line"></span>
+                    <span class="divider-text">热门城市</span>
+                    <span class="line"></span>
+                </div>
+                <div class="HotCity">
+                    <el-row :gutter="30">
+                        <el-col :span="6">
+                            <div class="city-card">
+                                <div class="city-img">
+                                    <img src="https://picsum.photos/id/1016/800/600" alt="北京" class="city-pic">
+                                    <div class="city-overlay"></div>
+                                </div>
+                                <div class="city-info">
+                                    <div class="grid-content">北京</div>
+                                    <div class="city-desc-wrapper">
+                                        <span class="city-desc">古都风貌与现代繁华的完美融合，感受历史的厚重与时代的脉搏</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </el-col>
+                        <el-col :span="6">
+                            <div class="city-card">
+                                <div class="city-img">
+                                    <img src="https://picsum.photos/id/1019/800/600" alt="上海" class="city-pic">
+                                    <div class="city-overlay"></div>
+                                </div>
+                                <div class="city-info">
+                                    <div class="grid-content">上海</div>
+                                    <div class="city-desc-wrapper">
+                                        <span class="city-desc">国际大都市的魅力，外滩的夜景与弄堂的风情交相辉映</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </el-col>
+                        <el-col :span="6">
+                            <div class="city-card">
+                                <div class="city-img">
+                                    <img src="https://picsum.photos/id/1031/800/600" alt="广州" class="city-pic">
+                                    <div class="city-overlay"></div>
+                                </div>
+                                <div class="city-info">
+                                    <div class="grid-content">广州</div>
+                                    <div class="city-desc-wrapper">
+                                        <span class="city-desc">千年商都，美食天堂，岭南文化的发源地与传承者</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </el-col>
+                        <el-col :span="6">
+                            <div class="city-card">
+                                <div class="city-img">
+                                    <img src="https://picsum.photos/id/1033/800/600" alt="深圳" class="city-pic">
+                                    <div class="city-overlay"></div>
+                                </div>
+                                <div class="city-info">
+                                    <div class="grid-content">深圳</div>
+                                    <div class="city-desc-wrapper">
+                                        <span class="city-desc">创新之城，从小渔村到国际大都市的蜕变奇迹</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </el-col>
+                    </el-row>
+                    <el-row :gutter="30">
+                        <el-col :span="6">
+                            <div class="city-card">
+                                <div class="city-img">
+                                    <img src="https://picsum.photos/id/1036/800/600" alt="杭州" class="city-pic">
+                                    <div class="city-overlay"></div>
+                                </div>
+                                <div class="city-info">
+                                    <div class="grid-content">杭州</div>
+                                    <div class="city-desc-wrapper">
+                                        <span class="city-desc">上有天堂下有苏杭，西湖美景与互联网创新的完美结合</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </el-col>
+                        <el-col :span="6">
+                            <div class="city-card">
+                                <div class="city-img">
+                                    <img src="https://picsum.photos/id/1039/800/600" alt="成都" class="city-pic">
+                                    <div class="city-overlay"></div>
+                                </div>
+                                <div class="city-info">
+                                    <div class="grid-content">成都</div>
+                                    <div class="city-desc-wrapper">
+                                        <span class="city-desc">天府之国，悠闲的生活节奏与火辣的美食文化</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </el-col>
+                        <el-col :span="6">
+                            <div class="city-card">
+                                <div class="city-img">
+                                    <img src="https://picsum.photos/id/1043/800/600" alt="重庆" class="city-pic">
+                                    <div class="city-overlay"></div>
+                                </div>
+                                <div class="city-info">
+                                    <div class="grid-content">重庆</div>
+                                    <div class="city-desc-wrapper">
+                                        <span class="city-desc">8D魔幻山城，长江与嘉陵江交汇处的立体都市</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </el-col>
+                        <el-col :span="6">
+                            <div class="city-card">
+                                <div class="city-img">
+                                    <img src="https://picsum.photos/id/1052/800/600" alt="西安" class="city-pic">
+                                    <div class="city-overlay"></div>
+                                </div>
+                                <div class="city-info">
+                                    <div class="grid-content">西安</div>
+                                    <div class="city-desc-wrapper">
+                                        <span class="city-desc">十三朝古都，兵马俑见证历史，羊肉泡馍香气四溢</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </el-col>
+                    </el-row>
+                    <el-row :gutter="30">
+                        <el-col :span="6">
+                            <div class="city-card">
+                                <div class="city-img">
+                                    <img src="https://picsum.photos/id/1054/800/600" alt="厦门" class="city-pic">
+                                    <div class="city-overlay"></div>
+                                </div>
+                                <div class="city-info">
+                                    <div class="grid-content">厦门</div>
+                                    <div class="city-desc-wrapper">
+                                        <span class="city-desc">海上花园城市，鼓浪屿的琴声与环岛路的海风</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </el-col>
+                        <el-col :span="6">
+                            <div class="city-card">
+                                <div class="city-img">
+                                    <img src="https://picsum.photos/id/1057/800/600" alt="青岛" class="city-pic">
+                                    <div class="city-overlay"></div>
+                                </div>
+                                <div class="city-info">
+                                    <div class="grid-content">青岛</div>
+                                    <div class="city-desc-wrapper">
+                                        <span class="city-desc">红瓦绿树碧海蓝天，啤酒飘香的海滨城市</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </el-col>
+                        <el-col :span="6">
+                            <div class="city-card">
+                                <div class="city-img">
+                                    <img src="https://picsum.photos/id/1060/800/600" alt="南京" class="city-pic">
+                                    <div class="city-overlay"></div>
+                                </div>
+                                <div class="city-info">
+                                    <div class="grid-content">南京</div>
+                                    <div class="city-desc-wrapper">
+                                        <span class="city-desc">六朝古都，秦淮河的夜景与中山陵的庄严肃穆</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </el-col>
+                        <el-col :span="6">
+                            <div class="city-card">
+                                <div class="city-img">
+                                    <img src="https://picsum.photos/id/1063/800/600" alt="武汉" class="city-pic">
+                                    <div class="city-overlay"></div>
+                                </div>
+                                <div class="city-info">
+                                    <div class="grid-content">武汉</div>
+                                    <div class="city-desc-wrapper">
+                                        <span class="city-desc">九省通衢，长江汉水交汇，热干面香气满街</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </el-col>
+                    </el-row>
                 </div>
             </div>
         </div>
@@ -182,6 +363,45 @@ import { Position, Search } from '@element-plus/icons-vue'
             justify-content: space-between;
             align-items: center;
             margin-bottom: 10px;
+        }
+
+        .content-body {
+            .diver {
+                width: 100%;
+                margin: 20px 0;
+                text-align: center;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                span:nth-child(1) {
+                    flex: 1;
+                }
+
+                span:nth-child(3) {
+                    flex: 1;
+                }
+
+                .line {
+                    display: inline-block;
+                    max-width: 30%;
+                    width: 30%;
+                }
+
+                .divider-text {
+                    vertical-align: middle;
+                    margin: 0px 20px;
+                    line-height: 0px;
+                    display: inline-block;
+                    width: 100px;
+                }
+            }
+        }
+
+        .HotCity {
+            .city-card {
+                border-radius: 20px;
+            }
         }
     }
 
@@ -535,7 +755,7 @@ import { Position, Search } from '@element-plus/icons-vue'
         .content {
             padding-top: 34px;
 
-            img {
+            .breadcrumb-img {
                 height: 40px;
                 margin-left: 10%;
             }
@@ -661,10 +881,12 @@ import { Position, Search } from '@element-plus/icons-vue'
 
 
             .content-body {
-                margin-top: 40px;
+                margin-top: 30px;
 
                 .search {
                     position: relative;
+                    height: 60px;
+                    margin-bottom: 10px;
 
                     :deep(.el-input__wrapper) {
                         position: absolute;
@@ -673,6 +895,88 @@ import { Position, Search } from '@element-plus/icons-vue'
                         width: 40%;
                         height: 40px;
                         border-radius: 20px;
+                    }
+                }
+
+                .diver {
+                    .line {
+                        border-bottom: 1px solid rgb(94, 98, 101);
+                    }
+                }
+
+                .HotCity {
+                    padding: 0 100px;
+                    margin-top: 30px;
+
+                    .el-row {
+                        margin-bottom: 30px;
+
+                        &:last-child {
+                            margin-bottom: 60px;
+                        }
+                    }
+
+                    .city-card {
+                        border-radius: 20px;
+                        overflow: hidden;
+                        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+                        transition: all 0.3s ease;
+                        background-color: #fff;
+                        cursor: pointer;
+
+                        &:hover {
+                            transform: translateY(-5px);
+                            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.18);
+                        }
+                    }
+
+                    .city-img {
+                        position: relative;
+                        height: 200px;
+                        overflow: hidden;
+
+                        .city-pic {
+                            width: 100%;
+                            height: 100%;
+                            object-fit: cover;
+                        }
+
+                        .city-overlay {
+                            position: absolute;
+                            bottom: 0;
+                            left: 0;
+                            right: 0;
+                            height: 60px;
+                            background: linear-gradient(transparent, rgba(0, 0, 0, 0.6));
+                        }
+                    }
+
+                    .city-info {
+                        padding: 20px 15px;
+                    }
+
+                    .grid-content {
+                        font-size: 20px;
+                        font-weight: 600;
+                        color: #333;
+                        margin-bottom: 10px;
+                        justify-content: flex-start;
+                        padding: 0;
+                        height: auto;
+                    }
+
+                    .city-desc-wrapper {
+                        min-height: 50px;
+
+                        .city-desc {
+                            color: #666;
+                            font-size: 14px;
+                            line-height: 1.6;
+                            display: -webkit-box;
+                            -webkit-line-clamp: 2;
+                            -webkit-box-orient: vertical;
+                            overflow: hidden;
+                        }
                     }
                 }
             }
