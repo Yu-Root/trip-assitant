@@ -32,7 +32,7 @@
                     </div>
                     <div class="button">
                         <el-button>
-                            <span class="btn-desc">创建新的行程</span>
+                            <span class="btn-desc" @click="GoToPlan">创建新的行程</span>
                             <template #icon>
                                 <el-icon style="margin-right: 4px;">
                                     <Position />
@@ -426,8 +426,13 @@
 
 <script setup>
 import { Position, Search, Picture, Loading } from '@element-plus/icons-vue'
+import { useRouter } from 'vue-router';
 
+const router = useRouter()
 
+const GoToPlan = () => {
+    router.push('/plan_page')
+}
 </script>
 
 <style lang="scss" scoped>
@@ -467,8 +472,8 @@ import { Position, Search, Picture, Loading } from '@element-plus/icons-vue'
                     //    margin-left: 20px;
                     //}
                     .nav-span {
-                        margin-left: 20px;
-                        font-size: 15px;
+                        //margin-left: 40px;
+                        //font-size: 15px;
                         font-weight: 600;
                         color: #696969;
                         cursor: pointer;
@@ -508,6 +513,7 @@ import { Position, Search, Picture, Loading } from '@element-plus/icons-vue'
             justify-content: space-between;
             align-items: center;
             margin-bottom: 10px;
+            margin-top: 10px;
         }
 
         .content-body {
@@ -804,7 +810,7 @@ import { Position, Search, Picture, Loading } from '@element-plus/icons-vue'
 
                     .city-img {
                         position: relative;
-                        height: 150px;
+                        height: 80px;
                         overflow: hidden;
 
                         .city-pic {
@@ -838,7 +844,7 @@ import { Position, Search, Picture, Loading } from '@element-plus/icons-vue'
                     }
 
                     .city-desc-wrapper {
-                        min-height: 40px;
+                        min-height: 30px;
 
                         .city-desc {
                             color: #666;
@@ -1124,6 +1130,11 @@ import { Position, Search, Picture, Loading } from '@element-plus/icons-vue'
         .trip-header-wrapper {
             .trip-header {
                 padding: 0 40px;
+
+                .nav-span {
+                    margin-left: 40px;
+                    font-size: 15px;
+                }
             }
         }
 
@@ -1183,17 +1194,16 @@ import { Position, Search, Picture, Loading } from '@element-plus/icons-vue'
 
                             &:hover {
                                 transform: translateY(-2px);
+
+                                .btn-desc {
+                                    color: #80deea;
+                                }
                             }
 
                             .btn-desc {
                                 color: #375c48;
                                 font-size: 18px;
                                 font-weight: 600;
-                                transition: all 0.2s ease;
-
-                                &:hover {
-                                    color: #80deea;
-                                }
                             }
                         }
                     }
