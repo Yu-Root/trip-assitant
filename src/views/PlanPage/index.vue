@@ -65,10 +65,10 @@
                 <el-form :model="tripData" label-width="120px">
                     <el-form-item label="交通方式">
                         <el-radio-group v-model="tripData.transport">
-                            <el-radio-button label="driving"><i class="fas fa-car"></i> 驾车</el-radio-button>
-                            <el-radio-button label="walking"><i class="fas fa-walking"></i> 步行</el-radio-button>
-                            <el-radio-button label="bicycling"><i class="fas fa-bicycle"></i> 骑行</el-radio-button>
-                            <el-radio-button label="airplane"><i class="fas fa-plane"></i> 飞行</el-radio-button>
+                            <el-radio-button value="driving"><i class="fas fa-car"></i> 驾车</el-radio-button>
+                            <el-radio-button value="walking"><i class="fas fa-walking"></i> 步行</el-radio-button>
+                            <el-radio-button value="bicycling"><i class="fas fa-bicycle"></i> 骑行</el-radio-button>
+                            <el-radio-button value="airplane"><i class="fas fa-plane"></i> 飞行</el-radio-button>
                         </el-radio-group>
                     </el-form-item>
                 </el-form>
@@ -212,16 +212,20 @@
 import { ref, reactive, computed, onMounted, watch } from 'vue'
 import { ElMessage, ElLoading } from 'element-plus'
 
+// 步骤状态
 const currentStep = ref(1)
 const totalSteps = 4
 
+// 步骤完成状态
 const stepStatus = ref([true, false, false, false])
 
+// 通知状态
 const notification = reactive({
     show: false,
     message: ''
 })
 
+// 表单数据
 const tripData = reactive({
     origin: '',
     destination: '',
@@ -236,6 +240,7 @@ const tripData = reactive({
     distance: null
 })
 
+// 交通方式配置
 const transportModes = {
     driving: { name: '驾车', speed: 60, icon: 'fa-car' },
     walking: { name: '步行', speed: 5, icon: 'fa-walking' },
@@ -243,6 +248,7 @@ const transportModes = {
     airplane: { name: '飞行', speed: 800, icon: 'fa-plane' }
 }
 
+// 天气图标映射
 const weatherIcons = {
     "晴": "fa-sun",
     "多云": "fa-cloud",
@@ -260,12 +266,483 @@ const weatherIcons = {
     "霾": "fa-smog"
 }
 
+// 星期映射
 const weekMap = { 1: '一', 2: '二', 3: '三', 4: '四', 5: '五', 6: '六', 7: '日' }
 
+// 计算属性
+const distanceInfo = computed(() => {
+    if (!tripData.distance) return '距离计算中...'
+    return `两地直线距离约 ${tripData.distance.toFixed(1)} 公里`
+})
+
+const averageTemperature = computed(() => {
+    if (tripData.weather && tripData.weather.forecast && tripData.weather.forecast.casts) {
+        const casts = tripData.weather.forecast.casts
+        let avgTemp = 0
+        casts.slice(0, 5).forEach(c => {
+            avgTemp += Number(c.daytemp) || 0
+        })
+        return (avgTemp / Math.min(5, casts.length)).toFixed(1)
+    } else {
+        return '--'
+    }
+})
+
+const budget = computed(() => estimateBudget())
+
+// 方法
 const nextStep = () => {
-    if (currentStep.value++ > 4)
-        currentStep.value = 0
+    // 步骤1的验证
+    if (currentStep.value === 1) {
+        if (!tripData.destination || !tripData.startDate || !tripData.endDate || tripData.travelers < 1) {
+            showNotification('请填写完整信息')
+            return
+        }
+        stepStatus.value[1] = true
+    }
+
+    // 步骤2的验证
+    if (currentStep.value === 2) {
+        stepStatus.value[2] = true
+    }
+
+    // 步骤3的验证
+    if (currentStep.value === 3) {
+        stepStatus.value[3] = true
+    }
+
+    if (currentStep.value < totalSteps) {
+        currentStep.value++
+
+        // 步骤2加载地图
+        if (currentStep.value === 2) {
+            setTimeout(() => {
+                showMapStep(true)
+            }, 100)
+        }
+
+        // 步骤3获取天气和景点
+        if (currentStep.value === 3) {
+            fetchWeatherAndPOI()
+        }
+    }
 }
+
+const prevStep = () => {
+    if (currentStep.value > 1) {
+        currentStep.value--
+    }
+}
+
+const showNotification = (msg) => {
+    ElMessage({
+        message: msg,
+        type: 'warning',
+        duration: 2000
+    })
+}
+
+const disabledStartDate = (time) => {
+    return time.getTime() < Date.now() - 24 * 60 * 60 * 1000
+}
+
+const disabledEndDate = (time) => {
+    if (!tripData.startDate) return time.getTime() < Date.now() - 24 * 60 * 60 * 1000
+    return time.getTime() < new Date(tripData.startDate).getTime()
+}
+
+const calculateTime = (mode) => {
+    if (!tripData.distance) return '计算中...'
+
+    const speed = transportModes[mode].speed
+    const hours = tripData.distance / speed
+
+    if (speed >= 100) {
+        return `${hours.toFixed(2)} 小时`
+    } else {
+        const h = Math.floor(hours)
+        const m = Math.round((hours - h) * 60)
+        return h > 0 ? `${h}小时${m}分钟` : `${m}分钟`
+    }
+}
+
+const transportText = (mode) => {
+    return transportModes[mode]?.name || '未知'
+}
+
+const togglePOI = (index) => {
+    const idx = tripData.selectedPOIs.indexOf(index)
+    if (idx > -1) {
+        tripData.selectedPOIs.splice(idx, 1)
+    } else {
+        tripData.selectedPOIs.push(index)
+    }
+}
+
+const restartPlan = () => {
+    // 重置所有数据
+    Object.assign(tripData, {
+        origin: '',
+        destination: '',
+        startDate: '',
+        endDate: '',
+        travelers: 1,
+        transport: 'driving',
+        weather: null,
+        pois: [],
+        selectedPOIs: [],
+        budget: '',
+        distance: null
+    })
+
+    stepStatus.value = [true, false, false, false]
+    currentStep.value = 1
+}
+
+// 修复的地理编码函数
+const getLocation = async (address) => {
+    // 如果地址为空，使用默认地址
+    if (!address || address.trim() === '') {
+        console.warn('地址为空，使用默认地址')
+        return { lng: 116.397428, lat: 39.90923 } // 默认北京坐标
+    }
+
+    const apiKey = "d6252339014b34205c7ab52961b96dd1"
+    try {
+        const res = await fetch(`https://restapi.amap.com/v3/geocode/geo?key=${apiKey}&address=${encodeURIComponent(address)}`)
+        const data = await res.json()
+
+        if (data.status === '1' && data.geocodes && data.geocodes.length > 0 && data.geocodes[0].location) {
+            const [lng, lat] = data.geocodes[0].location.split(',').map(Number)
+
+            // 验证坐标是否有效
+            if (!isNaN(lng) && !isNaN(lat) && lng >= -180 && lng <= 180 && lat >= -90 && lat <= 90) {
+                return { lng, lat }
+            } else {
+                console.warn('获取到无效的坐标:', { lng, lat })
+            }
+        }
+
+        // 如果API返回无效数据，使用默认坐标
+        console.warn(`无法获取"${address}"的坐标，使用默认坐标`)
+        return { lng: 116.397428, lat: 39.90923 } // 默认北京坐标
+
+    } catch (error) {
+        console.error('地理编码请求失败:', error)
+        return { lng: 116.397428, lat: 39.90923 } // 默认北京坐标
+    }
+}
+
+// 修复的地图初始化函数
+const showMapStep = async (showDistance) => {
+    const start = tripData.origin || '北京'
+    const end = tripData.destination || '上海'
+
+    try {
+        const [startLoc, endLoc] = await Promise.all([
+            getLocation(start),
+            getLocation(end)
+        ])
+
+        // 验证坐标有效性
+        if (isNaN(startLoc.lng) || isNaN(startLoc.lat) || isNaN(endLoc.lng) || isNaN(endLoc.lat)) {
+            throw new Error('获取到无效的坐标数据')
+        }
+
+        // 初始化地图
+        if (!window._amap2) {
+            window._amap2 = new AMap.Map('map', {
+                zoom: 10,
+                center: [startLoc.lng, startLoc.lat],
+                viewMode: '3D',
+            })
+
+            // 添加地图控件
+            try {
+                window._amap2.addControl(new AMap.ToolBar())
+                window._amap2.addControl(new AMap.Scale())
+                window._amap2.addControl(new AMap.HawkEye())
+            } catch (controlError) {
+                console.warn('地图控件添加失败:', controlError)
+            }
+        } else {
+            window._amap2.clearMap()
+            window._amap2.setCenter([startLoc.lng, startLoc.lat])
+        }
+
+        // 添加标记
+        try {
+            new AMap.Marker({
+                position: [startLoc.lng, startLoc.lat],
+                map: window._amap2,
+                title: start
+            })
+            new AMap.Marker({
+                position: [endLoc.lng, endLoc.lat],
+                map: window._amap2,
+                title: end
+            })
+        } catch (markerError) {
+            console.warn('标记添加失败:', markerError)
+        }
+
+        // 绘制路线
+        try {
+            const p1 = [startLoc.lng, startLoc.lat]
+            const p2 = [endLoc.lng, endLoc.lat]
+            const mx = (p1[0] + p2[0]) / 2
+            const my = (p1[1] + p2[1]) / 2
+            let dx = p2[0] - p1[0]
+            let dy = p2[1] - p1[1]
+            let nx = -dy, ny = dx
+            let curveFactor = 0.15
+            let len = Math.sqrt(nx * nx + ny * ny)
+            if (len === 0) len = 1
+            nx = nx / len
+            ny = ny / len
+            const ctrl = [mx + nx * curveFactor * Math.sqrt(dx * dx + dy * dy), my + ny * curveFactor * Math.sqrt(dx * dx + dy * dy)]
+
+            function getBezierPoints(p1, ctrl, p2, num) {
+                const pts = []
+                for (let t = 0; t <= 1; t += 1 / num) {
+                    const x = (1 - t) * (1 - t) * p1[0] + 2 * (1 - t) * t * ctrl[0] + t * t * p2[0]
+                    const y = (1 - t) * (1 - t) * p1[1] + 2 * (1 - t) * t * ctrl[1] + t * t * p2[1]
+                    pts.push([x, y])
+                }
+                return pts
+            }
+
+            const bezierPath = getBezierPoints(p1, ctrl, p2, 50)
+            new AMap.Polyline({
+                path: bezierPath,
+                strokeColor: '#0091ff',
+                strokeWeight: 4,
+                isOutline: true,
+                outlineColor: '#fff',
+                lineJoin: 'round',
+                map: window._amap2
+            })
+        } catch (polylineError) {
+            console.warn('路线绘制失败:', polylineError)
+        }
+
+        try {
+            window._amap2.setFitView()
+        } catch (fitViewError) {
+            console.warn('设置地图视图失败:', fitViewError)
+        }
+
+        // 计算距离
+        const distance = getDistance(startLoc.lat, startLoc.lng, endLoc.lat, endLoc.lng)
+        tripData.distance = distance
+
+    } catch (error) {
+        console.error('地图初始化失败:', error)
+        showNotification('地图初始化失败，请检查地址是否正确')
+    }
+}
+
+// 球面距离计算
+const getDistance = (lat1, lng1, lat2, lng2) => {
+    const toRad = d => d * Math.PI / 180
+    const R = 6371
+    const dLat = toRad(lat2 - lat1)
+    const dLng = toRad(lng2 - lng1)
+    const a = Math.sin(dLat / 2) ** 2 + Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) * Math.sin(dLng / 2) ** 2
+    return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a))
+}
+
+// 获取天气和景点
+const fetchWeatherAndPOI = () => {
+    const loading = ElLoading.service({
+        lock: true,
+        text: '正在获取天气和景点信息...',
+        background: 'rgba(0, 0, 0, 0.7)',
+    })
+
+    const apiKey = "d6252339014b34205c7ab52961b96dd1"
+    const weatherBaseUrl = "https://restapi.amap.com/v3/weather/weatherInfo"
+    const poiBaseUrl = "https://restapi.amap.com/v3/place/text"
+    const endCity = tripData.destination
+
+    // 天气
+    const weatherCurrentUrl = `${weatherBaseUrl}?key=${apiKey}&city=${encodeURIComponent(endCity)}&extensions=base`
+    const weatherForecastUrl = `${weatherBaseUrl}?key=${apiKey}&city=${encodeURIComponent(endCity)}&extensions=all`
+
+    // 景点
+    const poiParams = new URLSearchParams({
+        key: apiKey,
+        keywords: "景点",
+        city: endCity,
+        types: "风景名胜",
+        offset: 10,
+        page: 1,
+        extensions: "all",
+        output: "JSON"
+    })
+    const poiUrl = `${poiBaseUrl}?${poiParams.toString()}`
+
+    Promise.all([
+        fetch(weatherCurrentUrl).then(res => res.json()),
+        fetch(weatherForecastUrl).then(res => res.json()),
+        fetch(poiUrl).then(res => res.json())
+    ]).then(([currentData, forecastData, poiData]) => {
+        // 天气
+        if (currentData.status === "1" && currentData.lives && currentData.lives.length > 0) {
+            tripData.weather = {
+                live: currentData.lives[0],
+                forecast: forecastData.forecasts && forecastData.forecasts[0]
+            }
+        } else {
+            showNotification('天气信息获取失败')
+        }
+
+        // 景点
+        if (poiData.status === "1" && poiData.pois && poiData.pois.length > 0) {
+            tripData.pois = poiData.pois
+        } else {
+            showNotification('未找到相关景点')
+        }
+    }).catch(() => {
+        showNotification('天气或景点信息获取失败')
+    }).finally(() => {
+        loading.close()
+    })
+}
+
+// 预算估算
+const estimateBudget = () => {
+    // 交通费用
+    const transportCostMap = { driving: 300, walking: 0, bicycling: 50, airplane: 1200 }
+    const transportCost = (transportCostMap[tripData.transport] || 0) * tripData.travelers
+
+    // 住宿费用
+    const dailyCost = tripData.budget === 'low' ? 200 : tripData.budget === 'high' ? 800 : 400
+    const days = getTripDays()
+    const accommodationCost = dailyCost * days * tripData.travelers
+
+    // 门票
+    const ticketCost = (tripData.selectedPOIs.length || 0) * 50 * tripData.travelers // 假设每个景点50元
+
+    // 总预算
+    const total = transportCost + accommodationCost + ticketCost
+
+    return { transportCost, accommodationCost, ticketCost, total, days }
+}
+
+const getTripDays = () => {
+    if (!tripData.startDate || !tripData.endDate) return 1
+    const start = new Date(tripData.startDate)
+    const end = new Date(tripData.endDate)
+    return Math.max(1, Math.ceil((end - start) / (1000 * 60 * 60 * 24)))
+}
+
+// PDF导出
+const exportPDF = () => {
+    if (!window.jspdf) {
+        const script = document.createElement('script')
+        script.src = 'https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js'
+        script.onload = () => doExportPDF()
+        document.body.appendChild(script)
+    } else {
+        doExportPDF()
+    }
+}
+
+const doExportPDF = () => {
+    const { jsPDF } = window.jspdf
+    const doc = new jsPDF()
+    let y = 20
+
+    doc.setFont('helvetica')
+    doc.setFontSize(20)
+    doc.text('智能旅行规划助手 - 行程单', 20, y)
+    y += 15
+
+    doc.setFontSize(13)
+    doc.text('出发地: ' + (tripData.origin || '--'), 20, y)
+    y += 8
+    doc.text('目的地: ' + tripData.destination, 20, y)
+    y += 8
+    doc.text('日期: ' + tripData.startDate + ' 至 ' + tripData.endDate, 20, y)
+    y += 8
+    doc.text('人数: ' + tripData.travelers + ' 人', 20, y)
+    y += 8
+    doc.text('交通方式: ' + transportText(tripData.transport), 20, y)
+    y += 8
+    doc.text('预算: ' + (tripData.budget === 'low' ? '经济型' : tripData.budget === 'high' ? '高端' : '中等'), 20, y)
+    y += 12
+
+    doc.setFontSize(15)
+    doc.text('预算估算', 20, y)
+    y += 8
+    doc.setFontSize(12)
+    doc.text('交通费用: ¥' + budget.value.transportCost, 20, y)
+    y += 7
+    doc.text('住宿费用: ¥' + budget.value.accommodationCost, 20, y)
+    y += 7
+    doc.text('景点门票: ¥' + budget.value.ticketCost, 20, y)
+    y += 7
+    doc.text('总预算: ¥' + budget.value.total, 20, y)
+    y += 12
+
+    doc.setFontSize(15)
+    doc.text('推荐景点', 20, y)
+    y += 8
+    doc.setFontSize(12)
+    if (tripData.pois && tripData.selectedPOIs.length > 0) {
+        tripData.selectedPOIs.forEach((idx, i) => {
+            const poi = tripData.pois[idx]
+            doc.text((i + 1) + '. ' + poi.name + ' - ' + (poi.address || ''), 22, y)
+            y += 7
+        })
+    } else {
+        doc.text('无', 22, y)
+        y += 7
+    }
+
+    y += 8
+    doc.setFontSize(13)
+    doc.text('感谢使用智能旅行规划助手！', 20, y)
+
+    doc.save('旅行行程单.pdf')
+}
+
+// 监听步骤变化
+watch(currentStep, (newVal) => {
+    // 步骤2加载地图
+    if (newVal === 2) {
+        setTimeout(() => {
+            showMapStep(true)
+        }, 100)
+    }
+
+    // 步骤3获取天气和景点
+    if (newVal === 3) {
+        fetchWeatherAndPOI()
+    }
+})
+
+// 修复地图API加载
+onMounted(() => {
+    // 确保高德地图API已加载
+    if (!window.AMap) {
+        const script = document.createElement('script')
+        script.src = 'https://webapi.amap.com/maps?v=2.0&key=d6252339014b34205c7ab52961b96dd1&plugin=AMap.ToolBar,AMap.Scale,AMap.HawkEye,AMap.Driving,AMap.Walking,AMap.Riding'
+        script.onerror = () => {
+            console.error('高德地图API加载失败')
+            showNotification('地图服务加载失败，请检查网络连接')
+        }
+        document.head.appendChild(script)
+    }
+})
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.map-container {
+    width: 100%;
+    height: 320px;
+    border-radius: 12px;
+    margin: 20px 0;
+}
+</style>
