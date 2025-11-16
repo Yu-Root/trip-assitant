@@ -148,8 +148,68 @@ export const useTripPlanning = () => {
                 throw new Error('获取到无效的坐标数据')
             }
 
-            // 初始化地图逻辑...
-            // 这里保留原有的地图初始化代码，但为了简洁省略了具体实现
+            // 初始化地图逻辑
+            if (!window._amap2) {
+                window._amap2 = new AMap.Map('map', {
+                    zoom: 10,
+                    center: [startLoc.lng, startLoc.lat],
+                    viewMode: '2D',
+                })
+
+                // 添加地图控件
+                try {
+                    window._amap2.addControl(new AMap.ToolBar({
+                        position: 'RT'
+                    }))
+                    window._amap2.addControl(new AMap.Scale())
+                    window._amap2.addControl(new AMap.HawkEye())
+                } catch (controlError) {
+                    console.warn('地图控件添加失败:', controlError)
+                }
+
+                // 添加标记
+                try {
+                    new AMap.Marker({
+                        position: [startLoc.lng, startLoc.lat],
+                        map: window._amap2,
+                        title: start
+                    })
+                    new AMap.Marker({
+                        position: [endLoc.lng, endLoc.lat],
+                        map: window._amap2,
+                        title: end
+                    })
+                } catch (markerError) {
+                    console.warn('标记添加失败:', markerError)
+                }
+
+                //路线
+                try {
+                    // 起点和终点坐标
+                    const p1 = [startLoc.lng, startLoc.lat]
+                    const p2 = [endLoc.lng, endLoc.lat]
+
+                    // 直接用两点数组作为路径
+                    new AMap.Polyline({
+                        path: [p1, p2],
+                        strokeColor: '#0091ff',
+                        strokeWeight: 4,
+                        isOutline: true,
+                        outlineColor: '#fff',
+                        lineJoin: 'round',
+                        map: window._amap2
+                    })
+                } catch (polylineError) {
+                    console.warn('路线绘制失败:', polylineError)
+                }
+
+                //调整地图视野
+                try {
+                    window._amap2.setFitView()
+                } catch (fitViewError) {
+                    console.warn('设置地图视图失败:', fitViewError)
+                }
+            }
 
             const distance = getDistance(startLoc.lat, startLoc.lng, endLoc.lat, endLoc.lng)
             tripData.distance = distance
