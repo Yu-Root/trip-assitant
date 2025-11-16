@@ -252,11 +252,73 @@ export const useTripPlanning = () => {
 
     // PDF导出
     const exportPDF = () => {
-        // PDF导出逻辑...
+        if (!window.jspdf) {
+            const script = document.createElement('script')
+            script.src = 'https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js'
+            script.onload = () => doExportPDF()
+            document.body.appendChild(script)
+        } else {
+            doExportPDF()
+        }
     }
 
     const doExportPDF = () => {
-        // PDF生成逻辑...
+        const { jsPDF } = window.jspdf
+        const doc = new jsPDF()
+        let y = 20
+
+        doc.setFont('helvetica')
+        doc.setFontSize(20)
+        doc.text('Homfay旅行规划助手 - 行程单', 20, y)
+        y += 15
+
+        doc.setFontSize(13)
+        doc.text('出发地: ' + (tripData.origin || '--'), 20, y)
+        y += 8
+        doc.text('目的地: ' + tripData.destination, 20, y)
+        y += 8
+        doc.text('日期: ' + tripData.startDate + ' 至 ' + tripData.endDate, 20, y)
+        y += 8
+        doc.text('人数: ' + tripData.travelers + ' 人', 20, y)
+        y += 8
+        doc.text('交通方式: ' + transportText(tripData.transport), 20, y)
+        y += 8
+        doc.text('预算: ' + (tripData.budget === 'low' ? '经济型' : tripData.budget === 'high' ? '高端' : '中等'), 20, y)
+        y += 12
+
+        doc.setFontSize(15)
+        doc.text('预算估算', 20, y)
+        y += 8
+        doc.setFontSize(12)
+        doc.text('交通费用: ¥' + budget.value.transportCost, 20, y)
+        y += 7
+        doc.text('住宿费用: ¥' + budget.value.accommodationCost, 20, y)
+        y += 7
+        doc.text('景点门票: ¥' + budget.value.ticketCost, 20, y)
+        y += 7
+        doc.text('总预算: ¥' + budget.value.total, 20, y)
+        y += 12
+
+        doc.setFontSize(15)
+        doc.text('推荐景点', 20, y)
+        y += 8
+        doc.setFontSize(12)
+        if (tripData.pois && tripData.selectedPOIs.length > 0) {
+            tripData.selectedPOIs.forEach((idx, i) => {
+                const poi = tripData.pois[idx]
+                doc.text((i + 1) + '. ' + poi.name + ' - ' + (poi.address || ''), 22, y)
+                y += 7
+            })
+        } else {
+            doc.text('无', 22, y)
+            y += 7
+        }
+
+        y += 8
+        doc.setFontSize(13)
+        doc.text('感谢使用Homfay旅行规划助手！', 20, y)
+
+        doc.save('旅行行程单.pdf')
     }
 
     return {
