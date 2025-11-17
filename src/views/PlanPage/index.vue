@@ -275,7 +275,7 @@ onMounted(() => {
         background: rgba(255, 255, 255, 0.95);
         border-radius: 20px;
         box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-        overflow: hidden;
+        //overflow: hidden;
         position: relative;
 
         .close-btn {
@@ -396,6 +396,11 @@ onMounted(() => {
                 margin-bottom: 10px;
             }
 
+            .step-content {
+                height: 400px;
+                overflow-y: auto;
+            }
+
             .progress-bar {
                 height: 5px;
                 margin-bottom: 15px;
@@ -427,7 +432,7 @@ onMounted(() => {
 
                 .map-container {
                     width: 80%;
-                    height: 300px;
+                    height: 250px;
                     border-radius: 12px;
                     margin: 15px auto 0 auto;
                 }
