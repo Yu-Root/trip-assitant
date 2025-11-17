@@ -68,22 +68,11 @@
                     </div>
                 </div>
                 <div v-if="currentStep === 2" class="step-2">
-                    <el-form :model="tripData" label-width="120px">
-                        <el-form-item label="交通方式">
-                            <el-radio-group v-model="tripData.transport">
-                                <el-radio-button value="driving"><i class="fas fa-car"></i> 驾车</el-radio-button>
-                                <el-radio-button value="walking"><i class="fas fa-walking"></i> 步行</el-radio-button>
-                                <el-radio-button value="bicycling"><i class="fas fa-bicycle"></i> 骑行</el-radio-button>
-                                <el-radio-button value="airplane"><i class="fas fa-plane"></i> 飞行</el-radio-button>
-                            </el-radio-group>
-                        </el-form-item>
-                    </el-form>
-
                     <div class="distance-info">{{ distanceInfo }}</div>
-
                     <div class="time-list">
                         <div v-for="mode in Object.keys(transportModes)" :key="mode"
-                            :class="['time-item', { active: tripData.transport === mode }]">
+                            :class="['time-item', { active: tripData.transport === mode }]"
+                            @click="tripData.transport = mode">
                             <i :class="['fas', transportModes[mode].icon]"></i>
                             {{ transportModes[mode].name }}：{{ calculateTime(mode) }}
                         </div>
@@ -340,13 +329,45 @@ onMounted(() => {
             border-radius: 3px;
             overflow: hidden;
         }
+
+        .step-2 {
+            .distance-info {
+                font-size: 1.1rem;
+                color: #1976d2;
+                font-weight: 500;
+                text-align: center;
+                margin-bottom: 5px;
+            }
+
+            .time-list {
+                display: flex;
+                gap: 18px;
+                justify-content: center;
+
+                .time-item {
+                    background: #f0f4fa;
+                    border-radius: 10px;
+                    padding: 10px 18px;
+                    color: #1a2980;
+                    font-size: 1rem;
+                    display: flex;
+                    align-items: center;
+                    gap: 8px;
+
+                    &.active {
+                        background: #26d0ce;
+                        color: #fff;
+                    }
+                }
+            }
+        }
     }
 
     .map-container {
         width: 100%;
         height: 320px;
         border-radius: 12px;
-        margin: 20px 0;
+        margin-top: 15px;
     }
 }
 
@@ -361,7 +382,7 @@ onMounted(() => {
     .Planning-Page {
         .Planning-Page-wrapper {
             width: 70vw;
-            height: 85vh;
+            height: 90vh;
 
             h1 {
                 margin-bottom: 10px;
@@ -372,12 +393,12 @@ onMounted(() => {
             }
 
             .step-indicator {
-                margin-bottom: 30px;
+                margin-bottom: 10px;
             }
 
             .progress-bar {
-                height: 6px;
-                margin-bottom: 10px;
+                height: 5px;
+                margin-bottom: 15px;
 
                 .progress {
                     height: 100%;
@@ -386,6 +407,33 @@ onMounted(() => {
                     transition: width 0.4s;
                 }
             }
+
+            .btn-group {
+                display: flex;
+                justify-content: space-between;
+                flex-wrap: wrap;
+                margin: 10px 10%;
+            }
+
+            .step-2 {
+                .time-item {
+                    transition: all 0.3s ease;
+
+                    &:hover {
+                        transform: translateY(-3px);
+                        cursor: pointer;
+                    }
+                }
+
+                .map-container {
+                    width: 80%;
+                    height: 300px;
+                    border-radius: 12px;
+                    margin: 15px auto 0 auto;
+                }
+            }
+
+            .step-3 {}
         }
     }
 }
