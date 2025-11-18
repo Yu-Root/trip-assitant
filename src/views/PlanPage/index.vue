@@ -373,11 +373,627 @@ onMounted(() => {
     }
 }
 
-//手机
-@media (max-width: 767px) {}
+// 移动端样式 (max-width: 767px)
+@media (max-width: 767px) {
+    .Planning-Page {
+        height: 100vh;
+        overflow: hidden;
 
-//平板
-@media (min-width: 768px) and (max-width: 1024px) {}
+        .Planning-Page-wrapper {
+            width: 100vw;
+            //height: auto;
+            height: 90vh;
+            //margin: 20px 0;
+            //padding: 20px 15px;
+
+            .Planning-header {
+                h1 {
+                    font-size: 1.8rem;
+                    margin-bottom: 8px;
+                }
+
+                p {
+                    font-size: 0.9rem;
+                    margin-bottom: 15px;
+                }
+            }
+
+            .step-indicator {
+                margin: 15px 0;
+
+                :deep(.el-step) {
+                    .el-step__title {
+                        font-size: 0.7rem;
+                    }
+
+                    .el-step__description {
+                        font-size: 0.6rem;
+                    }
+                }
+            }
+
+            .progress-bar {
+                height: 4px;
+                margin-bottom: 20px;
+
+                .progress {
+                    height: 100%;
+                    background: #26d0ce;
+                    border-radius: 3px;
+                    transition: width 0.4s;
+                }
+            }
+
+            .step-content {
+                height: auto;
+                max-height: 70vh;
+                overflow-y: auto;
+                padding: 0 10px;
+
+                .el-form {
+                    .el-form-item {
+                        margin-bottom: 15px;
+
+                        .el-form-item__label {
+                            font-size: 0.9rem;
+                            margin-bottom: 5px;
+                        }
+                    }
+                }
+            }
+
+            .btn-group {
+                display: flex;
+                justify-content: space-between;
+                margin: 20px 0 10px 0;
+                gap: 10px;
+
+                .el-button {
+                    flex: 1;
+                    font-size: 0.9rem;
+                    padding: 10px 15px;
+                }
+            }
+
+            // 步骤2 - 路线交通
+            .step-2 {
+                .distance-info {
+                    font-size: 1rem;
+                    margin-bottom: 15px;
+                }
+
+                .time-list {
+                    flex-direction: column;
+                    gap: 5px;
+                    margin-bottom: 10px;
+
+                    .time-item {
+                        padding: 12px 15px;
+                        font-size: 0.9rem;
+                        justify-content: center;
+                    }
+                }
+
+                .map-container {
+                    height: 250px;
+                    margin-top: 10px;
+                }
+            }
+
+            // 步骤3 - 天气景点
+            .step-3 {
+                .weather-section {
+                    margin-bottom: 20px;
+
+                    h3 {
+                        font-size: 1.1rem;
+                        margin-bottom: 8px;
+                        text-align: center;
+                    }
+
+                    .weather-desc {
+                        font-size: 0.9rem;
+                        margin-bottom: 15px;
+                        text-align: center;
+                    }
+
+                    .weather-cards {
+                        gap: 10px;
+                        display: flex;
+                        flex-wrap: wrap;
+                        justify-content: center;
+                        padding-bottom: 10px;
+
+                        .weather-card {
+                            min-width: 50px;
+                            padding: 8px 5px;
+                            display: flex;
+                            flex-direction: column;
+                            align-items: center;
+
+                            .weekday {
+                                font-size: 0.8rem;
+                            }
+
+                            .weather-icon {
+                                font-size: 1.2rem;
+                                color: orange;
+
+                            }
+
+                            .temperature {
+                                font-size: 1.2rem;
+                            }
+
+                            .weather-desc {
+                                font-size: 0.8rem;
+                            }
+                        }
+                    }
+                }
+
+                .poi-section {
+                    h3 {
+                        font-size: 1.1rem;
+                        text-align: center;
+                        margin-bottom: 15px;
+                    }
+
+                    .poi-grid {
+                        display: grid;
+                        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+                        gap: 15px;
+
+                        .poi-card {
+                            background: #fff;
+                            border-radius: 10px;
+                            box-shadow: 0 2px 8px #e3eaf2;
+
+                            .poi-image {
+                                height: 120px;
+                                background: #e3eaf2 center/cover;
+                                border-radius: 8px 8px 0 0;
+                            }
+
+                            .poi-info {
+                                display: flex;
+                                flex-direction: column;
+                                align-items: center;
+                                padding: 5px;
+
+                                .poi-name {
+                                    font-weight: 600;
+                                    font-size: 1rem;
+                                }
+
+                                .poi-address {
+                                    font-size: 0.95rem;
+                                    color: #888;
+                                }
+
+                                .poi-type {
+                                    font-size: 0.9rem;
+                                    color: #1976d2;
+                                    margin-top: 4px;
+                                }
+
+                                .poi-rating {
+                                    margin-top: 6px;
+                                    font-size: 0.9rem;
+
+                                    i {
+                                        color: #f7b731;
+                                    }
+                                }
+
+                                .poi-ticket {
+                                    margin-top: 4px;
+                                    font-size: 0.9rem;
+                                }
+
+                                .poi-action {
+                                    margin-top: 6px;
+                                    font-size: 0.9rem;
+                                    color: #26d0ce;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            // 步骤4 - 行程总结
+            .step-4 {
+                .summary-section {
+                    .summary-success {
+                        text-align: center;
+                        margin-bottom: 10px;
+
+                        .success-icon {
+                            font-size: 2rem;
+                            color: #4cc9f0;
+                            margin-bottom: 5px;
+                            animation: bounce 1.5s infinite;
+                        }
+
+                        h2 {
+                            font-size: 1.3rem;
+                            font-weight: 700;
+                            margin-bottom: 3px;
+                        }
+
+                        p {
+                            color: #666;
+                            font-size: 0.9rem;
+                        }
+                    }
+
+                    .summary-card {
+                        margin-bottom: 25px;
+                        padding: 15px;
+                        background: #fff;
+                        border-radius: 18px;
+                        box-shadow: 0 10px 10px rgba(67, 97, 238, 0.08);
+                        padding-top: 10px;
+
+                        .summary-title {
+                            font-size: 1.1rem;
+                            margin-bottom: 15px;
+                            font-weight: 700;
+                            text-align: center;
+                        }
+
+                        .summary-grid {
+                            display: grid;
+                            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+                            gap: 12px;
+                        }
+
+                        .summary-item {
+                            background: #f7fafd;
+                            border-radius: 10px;
+                            padding: 12px 10px;
+                            font-size: 0.9rem;
+                            color: #222;
+                            display: flex;
+                            flex-direction: column;
+                            align-items: center;
+                            gap: 6px;
+
+                            .item-label {
+                                color: #888;
+                                font-size: 0.8rem;
+                                margin-bottom: 2px;
+                                font-weight: 500;
+                                display: flex;
+                                align-items: center;
+                                gap: 5px;
+                            }
+                        }
+
+                        .budget-details {
+                            display: flex;
+                            flex-direction: column;
+                            flex-wrap: wrap;
+                            align-items: center;
+                            gap: 15px;
+                            font-size: 1rem;
+                            margin-bottom: 10px;
+
+                            .total-budget {
+                                font-weight: 700;
+                            }
+                        }
+                    }
+
+                    .btn-group {
+                        flex-direction: column;
+
+                        .el-button {
+                            margin-bottom: 10px;
+                            margin-left: 0px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+// 平板端样式 (min-width: 768px) and (max-width: 1024px)
+@media (min-width: 768px) and (max-width: 1024px) {
+    .Planning-Page {
+        .Planning-Page-wrapper {
+            width: 70vw;
+            height: 100vh;
+
+            h1 {
+                margin-bottom: 5px;
+                font-size: 15px;
+            }
+
+            p {
+                margin-bottom: 5px;
+            }
+
+            .step-indicator {
+                margin-bottom: 5px;
+            }
+
+            .step-content {
+                height: 90vh;
+                overflow-y: auto;
+            }
+
+            .progress-bar {
+                height: 5px;
+                margin-bottom: 10px;
+
+                .progress {
+                    height: 100%;
+                    background: #26d0ce;
+                    border-radius: 3px;
+                    transition: width 0.4s;
+                }
+            }
+
+            .btn-group {
+                display: flex;
+                justify-content: space-between;
+                flex-wrap: wrap;
+                margin: 10px 10%;
+            }
+
+            .step-2 {
+                .time-item {
+                    transition: all 0.3s ease;
+
+                    &:hover {
+                        transform: translateY(-3px);
+                        cursor: pointer;
+                    }
+                }
+
+                .map-container {
+                    width: 80%;
+                    height: 200px;
+                    border-radius: 12px;
+                    margin: 10px auto 0 auto;
+                }
+            }
+
+            .step-3 {
+                .weather-section {
+                    margin-bottom: 10px;
+
+                    h3 {
+                        font-size: 1.3rem;
+                        margin-bottom: 4px;
+                        text-align: center;
+                    }
+
+                    .weather-desc {
+                        color: #888;
+                        font-size: 1rem;
+                        margin-bottom: 10px;
+                        text-align: center;
+                    }
+
+                    .weather-cards {
+                        display: flex;
+                        gap: 20px;
+                        flex-wrap: wrap;
+                        justify-content: center;
+
+                        .weather-card {
+                            background: #fff;
+                            border-radius: 18px;
+                            box-shadow: 0 2px 12px #e3eaf2;
+                            padding: 10px 10px;
+                            min-width: 140px;
+                            text-align: center;
+                            display: flex;
+                            flex-direction: column;
+                            align-items: center;
+
+                            .weekday {
+                                color: #888;
+                                font-weight: 600;
+                                font-size: 1.1rem;
+                                margin-bottom: 8px;
+                            }
+
+                            .weather-icon {
+                                font-size: 1.5rem;
+                                color: #ffa500;
+                                margin-bottom: 2px;
+                            }
+
+                            .temperature {
+                                font-size: 1.5rem;
+                                font-weight: 700;
+                                margin-bottom: 4px;
+                            }
+
+                            .weather-desc {
+                                color: #888;
+                                font-size: 1.1rem;
+                                margin-bottom: 0;
+                            }
+                        }
+                    }
+                }
+
+                .poi-section {
+                    h3 {
+                        margin-bottom: 10px;
+                        text-align: center;
+                    }
+
+                    .poi-grid {
+                        display: grid;
+                        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+                        gap: 15px;
+                        margin-top: 5px;
+
+                        .poi-card {
+                            background: #fff;
+                            border-radius: 10px;
+                            box-shadow: 0 2px 8px #e3eaf2;
+                            //padding: 10px 10px 15px 10px;
+                            cursor: pointer;
+                            transition: all 0.3s ease;
+
+                            &:hover,
+                            &.selected {
+                                transform: translateY(-3px);
+                                box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+                            }
+
+                            .poi-image {
+                                height: 150px;
+                                background: #e3eaf2 center/cover;
+                                border-radius: 8px 8px 0 0;
+                            }
+
+                            .poi-info {
+                                display: flex;
+                                flex-direction: column;
+                                align-items: center;
+
+                                .poi-name {
+                                    font-weight: 600;
+                                    margin: 8px 0 4px 0;
+
+                                }
+
+                                .poi-address {
+                                    font-size: 0.95rem;
+                                    color: #888;
+                                }
+
+                                .poi-type {
+                                    font-size: 0.9rem;
+                                    color: #1976d2;
+                                    margin-top: 4px;
+                                }
+
+                                .poi-rating {
+                                    margin-top: 6px;
+                                    font-size: 0.9rem;
+
+                                    i {
+                                        color: #f7b731;
+                                    }
+                                }
+
+                                .poi-ticket {
+                                    margin-top: 4px;
+                                    font-size: 0.9rem;
+                                }
+
+                                .poi-action {
+                                    margin-top: 6px;
+                                    font-size: 0.9rem;
+                                    color: #26d0ce;
+                                }
+                            }
+                        }
+                    }
+
+                }
+            }
+
+            .step-4 {
+                .summary-section {
+                    .summary-success {
+                        text-align: center;
+                        margin-bottom: 15px;
+
+                        .success-icon {
+                            font-size: 2.5rem;
+                            color: #4cc9f0;
+                            margin-bottom: 10px;
+                            animation: bounce 1.5s infinite;
+                        }
+
+                        h2 {
+                            font-size: 1.5rem;
+                            font-weight: 700;
+                            margin-bottom: 6px;
+                        }
+
+                        p {
+                            color: #666;
+                            font-size: 1.08rem;
+                        }
+                    }
+
+                    .summary-card {
+                        background: #fff;
+                        border-radius: 18px;
+                        box-shadow: 0 10px 10px rgba(67, 97, 238, 0.08);
+                        padding-top: 10px;
+                        padding-bottom: 20px;
+                        margin-bottom: 50px;
+
+                        .summary-title {
+                            font-size: 1.3rem;
+                            font-weight: 700;
+                            margin-bottom: 18px;
+                            text-align: center;
+                            //display: flex;
+                            //align-items: center;
+                            //gap: 10px;
+                        }
+
+                        .summary-grid {
+                            display: grid;
+                            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+                            gap: 18px;
+                            margin-bottom: 18px;
+                        }
+
+                        .summary-item {
+                            background: #f7fafd;
+                            border-radius: 10px;
+                            padding: 18px 16px;
+                            font-size: 1.08rem;
+                            color: #222;
+                            display: flex;
+                            flex-direction: column;
+                            align-items: center;
+                            gap: 6px;
+
+                            .item-label {
+                                color: #888;
+                                font-size: 0.98rem;
+                                margin-bottom: 2px;
+                                font-weight: 500;
+                                display: flex;
+                                align-items: center;
+                                gap: 5px;
+                            }
+                        }
+
+                        .budget-details {
+                            display: flex;
+                            flex-wrap: wrap;
+                            justify-content: center;
+                            gap: 30px;
+                            font-size: 1.1rem;
+                            margin-bottom: 10px;
+
+                            .total-budget {
+                                font-weight: 700;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
 
 //桌面
 @media (min-width: 1024px) {
