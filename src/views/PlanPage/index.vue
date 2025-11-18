@@ -122,7 +122,7 @@
                                         <i class="fas fa-ticket-alt"></i> 门票: 免费
                                     </div>
                                     <div class="poi-action">
-                                        点击{{ tripData.selectedPOIs.includes(index) ? '移除' : '添加' }}
+                                        点击卡片{{ tripData.selectedPOIs.includes(index) ? '移除' : '添加' }}
                                     </div>
                                 </div>
                             </div>
@@ -503,9 +503,84 @@ onMounted(() => {
                 .poi-section {
                     h3 {
                         margin-bottom: 10px;
+                        text-align: center;
                     }
+
+                    .poi-grid {
+                        display: grid;
+                        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+                        gap: 15px;
+                        margin-top: 5px;
+
+                        .poi-card {
+                            background: #fff;
+                            border-radius: 10px;
+                            box-shadow: 0 2px 8px #e3eaf2;
+                            //padding: 10px 10px 15px 10px;
+                            cursor: pointer;
+                            transition: all 0.3s ease;
+
+                            &:hover,
+                            &.selected {
+                                transform: translateY(-3px);
+                                box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+                            }
+
+                            .poi-image {
+                                height: 150px;
+                                background: #e3eaf2 center/cover;
+                                border-radius: 8px 8px 0 0;
+                            }
+
+                            .poi-info {
+                                display: flex;
+                                flex-direction: column;
+                                align-items: center;
+
+                                .poi-name {
+                                    font-weight: 600;
+                                    margin: 8px 0 4px 0;
+
+                                }
+
+                                .poi-address {
+                                    font-size: 0.95rem;
+                                    color: #888;
+                                }
+
+                                .poi-type {
+                                    font-size: 0.9rem;
+                                    color: #1976d2;
+                                    margin-top: 4px;
+                                }
+
+                                .poi-rating {
+                                    margin-top: 6px;
+                                    font-size: 0.9rem;
+
+                                    i {
+                                        color: #f7b731;
+                                    }
+                                }
+
+                                .poi-ticket {
+                                    margin-top: 4px;
+                                    font-size: 0.9rem;
+                                }
+
+                                .poi-action {
+                                    margin-top: 6px;
+                                    font-size: 0.9rem;
+                                    color: #26d0ce;
+                                }
+                            }
+                        }
+                    }
+
                 }
             }
+
+            .step-4 {}
         }
     }
 }
