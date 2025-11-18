@@ -153,7 +153,8 @@
                                 </div>
                                 <div class="summary-item">
                                     <div class="item-label"><i class="fas fa-calendar-alt"></i> 旅行日期</div>
-                                    {{ tripData.startDate }} 至 {{ tripData.endDate }}
+                                    {{ formatChineseDate(tripData.startDate) }} 至 {{
+                                        formatChineseDate(tripData.endDate) }}
                                 </div>
                                 <div class="summary-item">
                                     <div class="item-label"><i class="fas fa-user-friends"></i> 旅行人数</div>
@@ -231,6 +232,7 @@ const {
     restartPlan,
     showMapStep,
     fetchWeatherAndPOIData,
+    formatChineseDate,
     exportPDF
 } = useTripPlanning()
 
@@ -580,7 +582,93 @@ onMounted(() => {
                 }
             }
 
-            .step-4 {}
+            .step-4 {
+                .summary-section {
+                    .summary-success {
+                        text-align: center;
+                        margin-bottom: 15px;
+
+                        .success-icon {
+                            font-size: 2.5rem;
+                            color: #4cc9f0;
+                            margin-bottom: 10px;
+                            animation: bounce 1.5s infinite;
+                        }
+
+                        h2 {
+                            font-size: 1.5rem;
+                            font-weight: 700;
+                            margin-bottom: 6px;
+                        }
+
+                        p {
+                            color: #666;
+                            font-size: 1.08rem;
+                        }
+                    }
+
+                    .summary-card {
+                        background: #fff;
+                        border-radius: 18px;
+                        box-shadow: 0 10px 10px rgba(67, 97, 238, 0.08);
+                        padding-top: 10px;
+                        padding-bottom: 20px;
+                        margin-bottom: 50px;
+
+                        .summary-title {
+                            font-size: 1.3rem;
+                            font-weight: 700;
+                            margin-bottom: 18px;
+                            text-align: center;
+                            //display: flex;
+                            //align-items: center;
+                            //gap: 10px;
+                        }
+
+                        .summary-grid {
+                            display: grid;
+                            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+                            gap: 18px;
+                            margin-bottom: 18px;
+                        }
+
+                        .summary-item {
+                            background: #f7fafd;
+                            border-radius: 10px;
+                            padding: 18px 16px;
+                            font-size: 1.08rem;
+                            color: #222;
+                            display: flex;
+                            flex-direction: column;
+                            align-items: center;
+                            gap: 6px;
+
+                            .item-label {
+                                color: #888;
+                                font-size: 0.98rem;
+                                margin-bottom: 2px;
+                                font-weight: 500;
+                                display: flex;
+                                align-items: center;
+                                gap: 5px;
+                            }
+                        }
+
+                        .budget-details {
+                            display: flex;
+                            flex-wrap: wrap;
+                            justify-content: center;
+                            gap: 30px;
+                            font-size: 1.1rem;
+                            margin-bottom: 10px;
+
+                            .total-budget {
+                                font-weight: 700;
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 }

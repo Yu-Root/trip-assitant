@@ -250,6 +250,21 @@ export const useTripPlanning = () => {
         return { transportCost, accommodationCost, ticketCost, total, days }
     }
 
+    const formatChineseDate = (date) => {
+        if (!date) return '';
+
+        const dateObj = new Date(date);
+
+        if (isNaN(dateObj.getTime())) return '';
+
+        const year = dateObj.getFullYear();
+        const month = dateObj.getMonth() + 1;
+        const day = dateObj.getDate();
+
+        return `${year}年${month}月${day}日`;
+    }
+
+
     // PDF导出
     const exportPDF = () => {
         if (!window.jspdf) {
@@ -342,6 +357,7 @@ export const useTripPlanning = () => {
         restartPlan,
         showMapStep,
         fetchWeatherAndPOIData,
+        formatChineseDate,
         exportPDF
     }
 }

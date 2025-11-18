@@ -53,5 +53,16 @@ export const getTripDays = (startDate, endDate) => {
     if (!startDate || !endDate) return 1
     const start = new Date(startDate)
     const end = new Date(endDate)
-    return Math.max(1, Math.ceil((end - start) / (1000 * 60 * 60 * 24)))
+
+    if (isNaN(start.getTime()) || isNaN(end.getTime())) {
+        return 1;
+    }
+
+    start.setHours(0, 0, 0, 0);
+    end.setHours(0, 0, 0, 0);
+
+    const timeDiff = end - start;
+    const dayDiff = timeDiff / (1000 * 60 * 60 * 24);
+
+    return Math.max(1, Math.ceil(dayDiff + 1));
 }
