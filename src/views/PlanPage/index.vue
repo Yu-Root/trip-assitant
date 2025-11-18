@@ -438,7 +438,74 @@ onMounted(() => {
                 }
             }
 
-            .step-3 {}
+            .step-3 {
+                .weather-section {
+                    margin-bottom: 10px;
+
+                    h3 {
+                        font-size: 1.3rem;
+                        margin-bottom: 4px;
+                        text-align: center;
+                    }
+
+                    .weather-desc {
+                        color: #888;
+                        font-size: 1rem;
+                        margin-bottom: 10px;
+                        text-align: center;
+                    }
+
+                    .weather-cards {
+                        display: flex;
+                        gap: 20px;
+                        flex-wrap: wrap;
+                        justify-content: center;
+
+                        .weather-card {
+                            background: #fff;
+                            border-radius: 18px;
+                            box-shadow: 0 2px 12px #e3eaf2;
+                            padding: 10px 10px;
+                            min-width: 140px;
+                            text-align: center;
+                            display: flex;
+                            flex-direction: column;
+                            align-items: center;
+
+                            .weekday {
+                                color: #888;
+                                font-weight: 600;
+                                font-size: 1.1rem;
+                                margin-bottom: 8px;
+                            }
+
+                            .weather-icon {
+                                font-size: 1.5rem;
+                                color: #ffa500;
+                                margin-bottom: 2px;
+                            }
+
+                            .temperature {
+                                font-size: 1.5rem;
+                                font-weight: 700;
+                                margin-bottom: 4px;
+                            }
+
+                            .weather-desc {
+                                color: #888;
+                                font-size: 1.1rem;
+                                margin-bottom: 0;
+                            }
+                        }
+                    }
+                }
+
+                .poi-section {
+                    h3 {
+                        margin-bottom: 10px;
+                    }
+                }
+            }
         }
     }
 }
