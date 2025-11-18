@@ -159,7 +159,7 @@ export const useTripPlanning = () => {
                 // 添加地图控件
                 try {
                     window._amap2.addControl(new AMap.ToolBar({
-                        position: 'RT'
+                        position: 'LT'
                     }))
                     window._amap2.addControl(new AMap.Scale())
                     window._amap2.addControl(new AMap.HawkEye())
