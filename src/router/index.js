@@ -28,6 +28,11 @@ const routes = [{
     name: 'PlanPage',
     path: '/plan_page',
     component: () => import('@/views/PlanPage/index.vue')
+},
+{
+    name: 'OverCountry',
+    path: '/Over_Country',
+    component: () => import('@/views/OverCountry/index.vue')
 }
 ]
 

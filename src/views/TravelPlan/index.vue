@@ -7,8 +7,8 @@
                         <img src="@/assets/vue.svg" alt="">
                     </div>
                     <div class="trip-nav">
-                        <span class="nav-span">全国各地</span>
-                        <span class="nav-span">旅行助手</span>
+                        <span class="nav-span" @click="GoToPages('/Over_Country')">全国各地</span>
+                        <span class="nav-span" @click="GoToPages('/travel_plan')">旅行助手</span>
                     </div>
                 </div>
                 <div class="trip-header-user-wrapper">
@@ -432,6 +432,10 @@ const router = useRouter()
 
 const GoToPlan = () => {
     router.push('/plan_page')
+}
+
+const GoToPages = (path) => {
+    router.push(path)
 }
 </script>
 
