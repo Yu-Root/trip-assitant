@@ -33,6 +33,7 @@ const GoToPages = (path) => {
     z-index: 1000;
     width: 100%;
     background: #80deea;
+    margin-bottom: 1px;
 
     .trip-header {
         display: flex;
