@@ -1,21 +1,6 @@
 <template>
     <div class="trip-container">
-        <header class="trip-header-wrapper">
-            <div class="trip-header">
-                <div class="trip-header-nav-wrapper">
-                    <div class="trip-logo">
-                        <img src="@/assets/vue.svg" alt="">
-                    </div>
-                    <div class="trip-nav">
-                        <span class="nav-span" @click="GoToPages('/Over_Country')">全国各地</span>
-                        <span class="nav-span" @click="GoToPages('/travel_plan')">旅行助手</span>
-                    </div>
-                </div>
-                <div class="trip-header-user-wrapper">
-                    <span class="login">登录/注册</span>
-                </div>
-            </div>
-        </header>
+        <Nav></Nav>
         <div class="content">
             <div class="content-header">
                 <img class="breadcrumb-img" src="@/assets/images/breadcrumb.png" alt="">
@@ -427,6 +412,7 @@
 <script setup>
 import { Position, Search, Picture, Loading } from '@element-plus/icons-vue'
 import { useRouter } from 'vue-router';
+import Nav from '@/components/Nav/index.vue'
 
 const router = useRouter()
 
@@ -434,9 +420,6 @@ const GoToPlan = () => {
     router.push('/plan_page')
 }
 
-const GoToPages = (path) => {
-    router.push(path)
-}
 </script>
 
 <style lang="scss" scoped>
@@ -445,69 +428,6 @@ const GoToPages = (path) => {
     flex-direction: column;
     background: #F5FFFA;
     min-height: 100vh;
-
-    .trip-header-wrapper {
-        position: fixed;
-        z-index: 1000;
-        width: 100%;
-        background: #80deea;
-
-        .trip-header {
-            display: flex;
-            justify-content: space-between;
-
-            .trip-header-nav-wrapper {
-                display: flex;
-                justify-content: center;
-                align-items: center;
-
-                img {
-                    width: 30px;
-                    height: 30px;
-                    cursor: pointer;
-                }
-
-                .trip-nav {
-
-                    //.nav-span:first-child {
-                    //    margin-right: 20px;
-                    //}
-                    //.nav-span+.nav-span {
-                    //    margin-left: 20px;
-                    //}
-                    .nav-span {
-                        //margin-left: 40px;
-                        //font-size: 15px;
-                        font-weight: 600;
-                        color: #696969;
-                        cursor: pointer;
-
-                        &:hover {
-                            color: yellow;
-                        }
-                    }
-                }
-            }
-
-            .trip-header-user-wrapper {
-                display: flex;
-                justify-content: center;
-                align-items: center;
-
-                .login {
-                    margin-right: 10px;
-                    font-size: 15px;
-                    font-weight: 600;
-                    color: #696969;
-                    cursor: pointer;
-
-                    &:hover {
-                        color: yellow;
-                    }
-                }
-            }
-        }
-    }
 
     .content {
         flex: 1;
@@ -604,38 +524,6 @@ const GoToPages = (path) => {
 /* 手机样式 */
 @media (max-width: 767px) {
     .trip-container {
-        .trip-header-wrapper {
-            .trip-header {
-                height: 50px;
-                padding: 0 15px;
-
-                .trip-header-nav-wrapper {
-                    gap: 15px;
-
-                    img {
-                        width: 30px;
-                        height: 30px;
-                    }
-
-                    .trip-nav {
-                        gap: 15px;
-
-                        .nav-span {
-                            font-size: 14px;
-                            padding: 6px 10px;
-                        }
-                    }
-                }
-
-                .trip-header-user-wrapper {
-                    .login {
-                        font-size: 14px;
-                        padding: 6px 12px;
-                    }
-                }
-            }
-        }
-
         .content {
             padding-top: 50px;
 
@@ -886,12 +774,6 @@ const GoToPages = (path) => {
 /* 平板样式 */
 @media (min-width: 768px) and (max-width: 1024px) {
     .trip-container {
-        .trip-header-wrapper {
-            .trip-header {
-                padding: 0 30px;
-                height: 40px;
-            }
-        }
 
         .content {
             padding-top: 40px;
@@ -1131,17 +1013,6 @@ const GoToPages = (path) => {
 /* 桌面样式 */
 @media (min-width: 1024px) {
     .trip-container {
-        .trip-header-wrapper {
-            .trip-header {
-                padding: 0 40px;
-
-                .nav-span {
-                    margin-left: 40px;
-                    font-size: 15px;
-                }
-            }
-        }
-
         .content {
             padding-top: 34px;
 
