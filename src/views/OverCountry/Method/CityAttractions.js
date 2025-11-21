@@ -75,7 +75,9 @@ export const CityAttractions = () => {
         hasSearched,
         popularCities,
         searchAttractions,
-        selectPopularCity
+        selectPopularCity,
+        getImageStyle,
+        getType
     }
 }
 
