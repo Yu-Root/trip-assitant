@@ -38,31 +38,34 @@
             </div>
 
             <div class="result-container" id="results">
-                <div v-for="(attraction, index) in attractions" :key="attraction.id"
-                    :class="`attraction-card delay-${index % 5}`">
-                    <div class="attraction-image" :style="getImageStyle(attraction)">
-                        <div class="attraction-name">{{ attraction.name }}</div>
-                    </div>
-                    <div class="attraction-info">
-                        <div class="info-row">
-                            <i class="fas fa-map-marker-alt"></i>
-                            <p>{{ attraction.address || "地址信息未提供" }}</p>
+                <el-row :gutter="20">
+                    <el-col :span="6" v-for="(attraction, index) in attractions" :key="attraction.id">
+                        <div :class="`attraction-card delay-${index % 5}`">
+                            <div class="attraction-image" :style="getImageStyle(attraction)">
+                                <div class="attraction-name">{{ attraction.name }}</div>
+                            </div>
+                            <div class="attraction-info">
+                                <div class="info-row">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <p>{{ attraction.address || "地址信息未提供" }}</p>
+                                </div>
+                                <div class="info-row">
+                                    <i class="fas fa-tag"></i>
+                                    <p>类型: {{ getType(attraction) }}</p>
+                                </div>
+                                <div class="info-row">
+                                    <i class="fas fa-phone"></i>
+                                    <p>电话: {{ attraction.tel || "暂无信息" }}</p>
+                                </div>
+                                <div class="tags">
+                                    <span class="tag">{{ currentCity }}</span>
+                                    <span class="tag">评分: {{ attraction.importance || "4.0" }}</span>
+                                    <span class="tag">{{ getType(attraction) }}</span>
+                                </div>
+                            </div>
                         </div>
-                        <div class="info-row">
-                            <i class="fas fa-tag"></i>
-                            <p>类型: {{ getType(attraction) }}</p>
-                        </div>
-                        <div class="info-row">
-                            <i class="fas fa-phone"></i>
-                            <p>电话: {{ attraction.tel || "暂无信息" }}</p>
-                        </div>
-                        <div class="tags">
-                            <span class="tag">{{ currentCity }}</span>
-                            <span class="tag">评分: {{ attraction.importance || "4.0" }}</span>
-                            <span class="tag">{{ getType(attraction) }}</span>
-                        </div>
-                    </div>
-                </div>
+                    </el-col>
+                </el-row>
             </div>
         </div>
     </div>
@@ -89,7 +92,7 @@ const {
 <style scoped lang="scss">
 .container {
     background: #F5FFFA;
-    width: 100vw;
+    width: 100%;
     height: 100vh;
 }
 
@@ -200,8 +203,8 @@ const {
 }
 
 .result-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    //display: grid;
+    //grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     gap: 30px;
     margin-top: 40px;
 }
@@ -250,8 +253,8 @@ const {
 }
 
 .attraction-info p {
-    margin: 15px 0;
-    line-height: 1.7;
+    margin: 10px 0;
+    line-height: 1.5;
     color: #555;
     font-size: 1rem;
 }
