@@ -205,8 +205,9 @@ const {
 .result-container {
     //display: grid;
     //grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 30px;
+    //gap: 30px;
     margin-top: 40px;
+    padding: 0 20px;
 }
 
 
@@ -216,15 +217,20 @@ const {
     overflow: hidden;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    opacity: 0;
-    transform: translateY(20px);
+    height: 460px;
+    margin: 10px;
     animation: fadeInUp 0.5s ease forwards;
+
+    &:hover {
+        transform: translateY(-3px) !important;
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+    }
 }
 
-.attraction-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
-}
+//.attraction-card:hover {
+//    transform: translateY(-10px);
+//    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+//}
 
 .attraction-image {
     height: 220px;
@@ -249,7 +255,7 @@ const {
 }
 
 .attraction-info {
-    padding: 25px;
+    padding: 15px;
 }
 
 .attraction-info p {
@@ -262,7 +268,7 @@ const {
 .info-row {
     display: flex;
     align-items: center;
-    margin: 10px 0;
+    margin: 5px 0;
 }
 
 .info-row i {
