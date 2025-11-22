@@ -40,7 +40,7 @@
             <div class="result-container" id="results">
                 <el-row :gutter="20">
                     <el-col :span="6" v-for="(attraction, index) in attractions" :key="attraction.id">
-                        <div :class="`attraction-card delay-${index % 5}`">
+                        <div :class="`attraction-card delay-${index % 5} `">
                             <div class="attraction-image" :style="getImageStyle(attraction)">
                                 <div class="attraction-name">{{ attraction.name }}</div>
                             </div>
@@ -74,6 +74,7 @@
 <script setup>
 import Nav from '@/components/Nav/index.vue'
 import { CityAttractions } from '@/views/OverCountry/Method/CityAttractions'
+import { onMounted, ref } from 'vue'
 
 const {
     currentCity,
@@ -86,6 +87,7 @@ const {
     getImageStyle,
     getType
 } = CityAttractions()
+
 </script>
 
 
@@ -216,15 +218,24 @@ const {
     border-radius: 15px;
     overflow: hidden;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: transform 0.3s ease 0.5s, box-shadow 0.3s ease 0.5s;
     height: 460px;
     margin: 10px;
+
+    opacity: 0;
+    transform: translateY(20px);
+
     animation: fadeInUp 0.5s ease forwards;
 
     &:hover {
         transform: translateY(-3px) !important;
         box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
     }
+}
+
+.attraction-card.enter-active {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 //.attraction-card:hover {
