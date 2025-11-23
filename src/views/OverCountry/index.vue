@@ -92,6 +92,15 @@ const {
 
 
 <style scoped lang="scss">
+// 移动端样式 (max-width: 767px)
+@media (max-width: 767px) {}
+
+// 平板端样式 (min-width: 768px) and (max-width: 1024px)
+@media (min-width: 768px) and (max-width: 1024px) {}
+
+//桌面
+@media (min-width: 1024px) {}
+
 .container {
     background: #F5FFFA;
     width: 100%;
