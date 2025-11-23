@@ -209,6 +209,13 @@
 import { onMounted, watch } from 'vue'
 import { useTripPlanning } from '@/views/PlanPage/Methods/useTripPlanning'
 import { Close } from '@element-plus/icons-vue'
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
+
+const goToHome = () => {
+    router.push('/travel_plan')
+}
 
 // 使用组合式函数
 const {
