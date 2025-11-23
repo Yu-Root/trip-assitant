@@ -92,15 +92,6 @@ const {
 
 
 <style scoped lang="scss">
-// 移动端样式 (max-width: 767px)
-@media (max-width: 767px) {}
-
-// 平板端样式 (min-width: 768px) and (max-width: 1024px)
-@media (min-width: 768px) and (max-width: 1024px) {}
-
-//桌面
-@media (min-width: 1024px) {}
-
 .container {
     background: #F5FFFA;
     width: 100%;
@@ -110,117 +101,104 @@ const {
 .header {
     padding-top: 100px;
     text-align: center;
+}
 
-    .popular-cities {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 20px;
+.popular-cities {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
 
-        .popular-city {
-            margin-top: 20px;
-            background: #b0e0e6;
-            width: 100px;
-            height: 40px;
-            color: white;
-            padding: 12px 25px;
-            border-radius: 50px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            font-size: 1.1rem;
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            cursor: pointer;
+.popular-city {
+    margin-top: 20px;
+    background: #b0e0e6;
+    width: 100px;
+    height: 40px;
+    color: white;
+    padding: 12px 25px;
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    font-size: 1.1rem;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    cursor: pointer;
 
-            &:hover {
-                background: rgba(206, 203, 40, 0.3);
-                transform: translateY(-5px);
-                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-            }
-
-        }
+    &:hover {
+        background: rgba(206, 203, 40, 0.3);
+        transform: translateY(-5px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
     }
 }
 
-.search-box {
+.search-box .form-group .label {
+    font-weight: 600;
+    font-size: 20px;
+    margin-top: 40px;
+    margin-bottom: 20px;
+}
 
-    .form-group {
-        //border: 1px solid red;
+.search-box .form-group .input-group {
+    display: flex;
+    border-radius: 50px;
+    overflow: hidden;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+    width: 60%;
+    margin: 0 auto;
+}
 
-        .label {
-            font-weight: 600;
-            font-size: 20px;
-            margin-top: 40px;
-            margin-bottom: 20px;
-        }
+.search-box .form-group .input-group input {
+    flex: 1;
+    padding: 18px 25px;
+    border: none;
+    font-size: 1.2rem;
+    outline: none;
+    transition: all 0.3s ease;
+}
 
-        .input-group {
-            display: flex;
-            border-radius: 50px;
-            overflow: hidden;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
-            width: 60%;
-            margin: 0 auto;
-        }
+.search-box .form-group .input-group input:focus {
+    background-color: #f8f9fa;
+}
 
-        .input-group input {
-            flex: 1;
-            padding: 18px 25px;
-            border: none;
-            font-size: 1.2rem;
-            outline: none;
-            transition: all 0.3s ease;
-        }
+.search-box .form-group .input-group button {
+    background: linear-gradient(135deg, #b0e0e6 0%, #80deea 100%);
+    color: white;
+    border: none;
+    padding: 0 45px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
 
-        .input-group input:focus {
-            background-color: #f8f9fa;
-        }
+.search-box .form-group .input-group button:hover {
+    background: yellow;
+    color: black;
+    transform: translateY(-2px);
+}
 
-        .input-group button {
-            background: linear-gradient(135deg, #b0e0e6 0%, #80deea 100%);
-            color: white;
-            border: none;
-            padding: 0 45px;
-            font-size: 1.2rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
+.search-box .api-info {
+    background: #e3f2fd;
+    padding: 15px;
+    border-radius: 50px;
+    margin-top: 20px;
+    text-align: center;
+    font-size: 0.9rem;
+    display: inline-block;
+}
 
-        .input-group button:hover {
-            background: yellow;
-            color: black;
-            transform: translateY(-2px);
-        }
-    }
-
-    .api-info {
-        background: #e3f2fd;
-        padding: 15px;
-        border-radius: 50px;
-        margin-top: 20px;
-        text-align: center;
-        font-size: 0.9rem;
-        display: inline-block;
-    }
-
-    .api-info i {
-        color: #1976d2;
-        margin-right: 5px;
-    }
-
+.search-box .api-info i {
+    color: #1976d2;
+    margin-right: 5px;
 }
 
 .result-container {
-    //display: grid;
-    //grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    //gap: 30px;
     margin-top: 40px;
     padding: 0 20px;
 }
-
 
 .attraction-card {
     background: white;
@@ -230,10 +208,8 @@ const {
     transition: transform 0.3s ease 0.5s, box-shadow 0.3s ease 0.5s;
     height: 460px;
     margin: 10px;
-
     opacity: 0;
     transform: translateY(20px);
-
     animation: fadeInUp 0.5s ease forwards;
 
     &:hover {
@@ -246,11 +222,6 @@ const {
     opacity: 1;
     transform: translateY(0);
 }
-
-//.attraction-card:hover {
-//    transform: translateY(-10px);
-//    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
-//}
 
 .attraction-image {
     height: 220px;
@@ -338,7 +309,7 @@ const {
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
 }
 
-
+/* 动画定义 */
 @keyframes spin {
     0% {
         transform: rotate(0deg);
@@ -392,4 +363,46 @@ const {
 .delay-5 {
     animation-delay: 0.5s;
 }
+
+
+// 移动端样式 (max-width: 767px)
+@media (max-width: 767px) {
+    .header {
+        padding-top: 80px;
+    }
+
+    .popular-cities {
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .popular-city {
+        width: 80px;
+        height: 35px;
+        padding: 8px 15px;
+        font-size: 0.9rem;
+    }
+
+    .search-box .form-group .input-group {
+        width: 70%;
+        flex-direction: column;
+        border-radius: 25px;
+    }
+
+    .search-box .form-group .input-group input {
+        padding: 15px 20px;
+        font-size: 1rem;
+    }
+
+    .search-box .form-group .input-group button {
+        padding: 15px 20px;
+        font-size: 1rem;
+    }
+}
+
+// 平板端样式 (min-width: 768px) and (max-width: 1024px)
+@media (min-width: 768px) and (max-width: 1024px) {}
+
+//桌面
+@media (min-width: 1024px) {}
 </style>
