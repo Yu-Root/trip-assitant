@@ -461,5 +461,21 @@ const {
 }
 
 //桌面
-@media (min-width: 1024px) {}
+@media (min-width: 1024px) {
+    .header {
+        padding-top: 80px;
+    }
+
+    .result-container {
+        max-width: 1200px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .attraction-card {
+        height: 500px;
+        margin: 15px 5px;
+    }
+
+}
 </style>
