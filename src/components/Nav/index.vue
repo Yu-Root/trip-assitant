@@ -2,9 +2,11 @@
     <header class="trip-header-wrapper">
         <div class="trip-header">
             <div class="trip-header-nav-wrapper">
-                <div class="trip-logo">
-                    <img src="@/assets/vue.svg" alt="">
-                </div>
+                <RouterLink to="/home">
+                    <div class="trip-logo">
+                        <img src="@/assets/vue.svg" alt="">
+                    </div>
+                </RouterLink>
                 <div class="trip-nav">
                     <span class="nav-span" @click="GoToPages('/Over_Country')">全国各地</span>
                     <span class="nav-span" @click="GoToPages('/travel_plan')">旅行助手</span>
@@ -18,7 +20,7 @@
 </template>
 
 <script setup>
-import { useRouter } from 'vue-router';
+import { RouterLink, useRouter } from 'vue-router';
 
 const router = useRouter()
 
