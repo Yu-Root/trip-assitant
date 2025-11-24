@@ -405,7 +405,7 @@ const {
 
     .attraction-card {
         height: 200px;
-        margin: 5px;
+        margin: 10px 5px;
     }
 
     .attraction-image {
@@ -414,7 +414,51 @@ const {
 }
 
 // 平板端样式 (min-width: 768px) and (max-width: 1024px)
-@media (min-width: 768px) and (max-width: 1024px) {}
+@media (min-width: 768px) and (max-width: 1024px) {
+    .header {
+        padding-top: 80px;
+    }
+
+    .popular-cities {
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .popular-city {
+        width: 80px;
+        height: 35px;
+        padding: 8px 15px;
+        font-size: 0.9rem;
+    }
+
+    .search-box .form-group .input-group {
+        width: 70%;
+        border-radius: 25px;
+    }
+
+    .search-box .form-group .input-group input {
+        padding: 15px 20px;
+        font-size: 1rem;
+    }
+
+    .search-box .form-group .input-group button {
+        padding: 15px 20px;
+        font-size: 1rem;
+    }
+
+    .result-container {
+        padding: 0 10px;
+    }
+
+    .attraction-card {
+        height: 200px;
+        margin: 15px 5px;
+    }
+
+    .attraction-image {
+        height: 200px;
+    }
+}
 
 //桌面
 @media (min-width: 1024px) {}
