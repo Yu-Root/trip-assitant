@@ -398,6 +398,19 @@ const {
         padding: 15px 20px;
         font-size: 1rem;
     }
+
+    .result-container {
+        padding: 0 10px;
+    }
+
+    .attraction-card {
+        height: 200px;
+        margin: 5px;
+    }
+
+    .attraction-image {
+        height: 200px;
+    }
 }
 
 // 平板端样式 (min-width: 768px) and (max-width: 1024px)
