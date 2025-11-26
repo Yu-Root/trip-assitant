@@ -43,6 +43,8 @@
 import { reactive, ref } from 'vue';
 import { User, Lock } from '@element-plus/icons-vue'
 
+import { register } from '@/api/login';
+
 const RegisterForm = reactive({
     account: '',
     password: '',
