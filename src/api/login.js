@@ -14,3 +14,18 @@ export const register = (data) => {
         }
     })
 }
+
+export const login = (data) => {
+    const {
+        account,
+        password
+    } = data
+    return instance({
+        url: '/api/login',
+        method: 'POST',
+        data: {
+            account,
+            password
+        }
+    })
+}

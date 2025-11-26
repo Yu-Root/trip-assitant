@@ -54,12 +54,15 @@
 <script setup>
 import { User, Lock } from '@element-plus/icons-vue'
 import { reactive, ref } from 'vue'
+import { ElMessage } from 'element-plus'
 import { useRouter } from 'vue-router';
 import { useMusicStore } from '@/stores/MusicStore';
 
 import Phone_LoginDialog from './components/Phone_Login.vue';
 import WeChat_LoginDialog from './components/WeChat_Login.vue';
 import Register_Dialog from '@/views/Register/index.vue'
+
+import { login } from '@/api/login';
 
 const MusicStore = useMusicStore()
 
@@ -70,9 +73,21 @@ const loginForm = reactive({
     password: ''
 })
 
-const Login = () => {
-    router.push('/home')
-    MusicStore.playAfterInteraction()
+const Login = async () => {
+    const res = await login(loginForm)
+    if (res.status == 0) {
+        ElMessage({
+            message: '登录成功',
+            type: 'success',
+        })
+        router.push('/home')
+        MusicStore.playAfterInteraction()
+    } else {
+        ElMessage({
+            message: '登录失败',
+            type: 'error',
+        })
+    }
 }
 
 const Register = ref()
