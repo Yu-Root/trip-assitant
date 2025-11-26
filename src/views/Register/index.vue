@@ -42,6 +42,7 @@
 <script setup>
 import { reactive, ref } from 'vue';
 import { User, Lock } from '@element-plus/icons-vue'
+import { ElMessage } from 'element-plus'
 
 import { register } from '@/api/login';
 
@@ -51,14 +52,28 @@ const RegisterForm = reactive({
     confirmPassword: ''
 })
 
+
+
 const dialogRegisterVisible = ref(false)
 const openDialog = () => {
     dialogRegisterVisible.value = true
 }
 
-const GoRegister = () => {
-    console.log('注册信息:', RegisterForm)
-    // 注册成功后可以关闭对话框
+const GoRegister = async () => {
+    if (RegisterForm.password === RegisterForm.confirmPassword && RegisterForm.account) {
+        const res = await register(RegisterForm)
+        console.log(res)
+        if (res.status == 0) {
+            ElMessage({
+                message: '注册成功',
+                type: 'success',
+            })
+        } else {
+            ElMessage.error('注册失败，请检查数据是否正确')
+        }
+    } else {
+        ElMessage.error('注册失败')
+    }
     dialogRegisterVisible.value = false
 }
 
