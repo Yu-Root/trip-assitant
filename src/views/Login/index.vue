@@ -75,7 +75,10 @@ const loginForm = reactive({
 
 const Login = async () => {
     const res = await login(loginForm)
+    console.log(res)
     if (res.status == 0) {
+        const { token } = res
+        localStorage.setItem('token', token)
         ElMessage({
             message: '登录成功',
             type: 'success',
