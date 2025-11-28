@@ -11,10 +11,10 @@ export const useUserStore = defineStore('User', () => {
     const email = ref('')
 
     const fetchUserInfo = async (id) => {
-        console.log('传入的ID:', id)
+        //console.log('传入的ID:', id)
         const res = await getUserInfo(id)
-        console.log('完整的API响应:', res) // 查看完整的响应结构
-        console.log('results数据:', res.results) // 查看results的具体内容
+        //console.log('完整的API响应:', res) 
+        //console.log('results数据:', res.results) 
         if (res.status == 0) {
             imageUrl.value = res.results.imageUrl
             name.value = res.results.name
