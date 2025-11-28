@@ -77,6 +77,7 @@ import { useRouter } from 'vue-router'
 import { useUserStore } from '@/stores/UserStore'
 
 const userStore = useUserStore()
+console.log(userStore)
 
 const router = useRouter()
 
