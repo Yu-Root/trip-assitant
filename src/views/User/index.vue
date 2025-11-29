@@ -38,7 +38,7 @@
                             <el-input v-model="userStore.name"></el-input>
                         </div>
                         <div class="account-save-button">
-                            <el-button @click="saveName">保存</el-button>
+                            <el-button @click="saveName">修改姓名</el-button>
                         </div>
                     </div>
                     <div class="account-info-wrapped">
@@ -50,7 +50,7 @@
                             </el-select>
                         </div>
                         <div class="account-save-button">
-                            <el-button @click="saveSex">保存</el-button>
+                            <el-button @click="saveSex">修改性别</el-button>
                         </div>
                     </div>
                     <div class="account-info-wrapped">
@@ -59,7 +59,7 @@
                             <el-input v-model="userStore.email"></el-input>
                         </div>
                         <div class="account-save-button">
-                            <el-button @click="saveEmail">保存</el-button>
+                            <el-button @click="saveEmail">修改邮箱</el-button>
                         </div>
                     </div>
                 </el-tab-pane>
