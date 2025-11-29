@@ -10,8 +10,7 @@ export const getUserInfo = (id) => {
     })
 }
 
-export const changeName = (data) => {
-    const { id, name } = data
+export const changeName = (id, name) => {
     return instance({
         url: '/user/changeName',
         method: 'POST',

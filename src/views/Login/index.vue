@@ -83,11 +83,10 @@ const Login = async () => {
     console.log(res)
     if (res.status == 0) {
         const { id } = res.results
-        console.log(id)
         const { token } = res
         localStorage.setItem('token', token)
+        localStorage.setItem('id', id)
         await UserStore.fetchUserInfo(id)
-        console.log(UserStore.account)
 
         ElMessage({
             message: '登录成功',

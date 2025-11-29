@@ -38,7 +38,7 @@
                             <el-input v-model="userStore.name"></el-input>
                         </div>
                         <div class="account-save-button">
-                            <el-button @click="saveName">修改姓名</el-button>
+                            <el-button @click="ChangeName">修改姓名</el-button>
                         </div>
                     </div>
                     <div class="account-info-wrapped">
@@ -50,7 +50,7 @@
                             </el-select>
                         </div>
                         <div class="account-save-button">
-                            <el-button @click="saveSex">修改性别</el-button>
+                            <el-button @click="changeSex">修改性别</el-button>
                         </div>
                     </div>
                     <div class="account-info-wrapped">
@@ -59,7 +59,7 @@
                             <el-input v-model="userStore.email"></el-input>
                         </div>
                         <div class="account-save-button">
-                            <el-button @click="saveEmail">修改邮箱</el-button>
+                            <el-button @click="changeEmail">修改邮箱</el-button>
                         </div>
                     </div>
                 </el-tab-pane>
@@ -73,8 +73,12 @@
 <script setup>
 import { Plus, Close } from '@element-plus/icons-vue'
 import { onMounted, ref } from 'vue'
+import { ElMessage } from 'element-plus'
 import { useRouter } from 'vue-router'
+
 import { useUserStore } from '@/stores/UserStore'
+
+import { changeName } from '@/api/userinfo'
 
 const userStore = useUserStore()
 console.log(userStore)
@@ -115,15 +119,28 @@ const openChangePassword = () => {
     // 打开修改密码对话框
 }
 
-const saveName = () => {
-    // 保存昵称
+const ChangeName = async () => {
+    const id = localStorage.getItem('id')
+    const res = await changeName(id, userStore.name)
+    console.log(res)
+    if (res.status == 0) {
+        ElMessage({
+            message: '修改成功',
+            type: 'success',
+        })
+    } else {
+        ElMessage({
+            message: '修改失败',
+            type: 'error',
+        })
+    }
 }
 
-const saveSex = () => {
+const changeSex = () => {
     // 保存性别
 }
 
-const saveEmail = () => {
+const changeEmail = () => {
     // 保存邮箱
 }
 
