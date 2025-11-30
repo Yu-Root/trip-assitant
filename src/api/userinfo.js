@@ -31,3 +31,14 @@ export const changeSex = (id, sex) => {
         }
     })
 }
+
+export const changeEmail = (id, email) => {
+    return instance({
+        url: '/user/changeEmail',
+        method: 'POST',
+        data: {
+            id,
+            email
+        }
+    })
+}
