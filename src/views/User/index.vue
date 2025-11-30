@@ -68,6 +68,7 @@
             </el-tabs>
         </div>
     </div>
+    <SettingDialog ref="setting"></SettingDialog>
 </template>
 
 <script setup>
@@ -80,6 +81,8 @@ import { useUserStore } from '@/stores/UserStore'
 
 import { changeName, changeSex, changeEmail } from '@/api/userinfo'
 
+import SettingDialog from '@/views/User/components/dialog/index.vue'
+
 const userStore = useUserStore()
 console.log(userStore)
 
@@ -87,6 +90,8 @@ const router = useRouter()
 
 const activeName = ref('first')
 const isMobile = ref(false)
+
+const setting = ref()
 
 const goToHome = () => {
     router.push('/home')
@@ -120,19 +125,20 @@ const openChangePassword = () => {
 }
 
 const ChangeName = async () => {
-    const id = localStorage.getItem('id')
-    const res = await changeName(id, userStore.name)
-    if (res.status == 0) {
-        ElMessage({
-            message: '修改成功',
-            type: 'success',
-        })
-    } else {
-        ElMessage({
-            message: '修改失败',
-            type: 'error',
-        })
-    }
+    setting.value.openDialog()
+    //const id = localStorage.getItem('id')
+    //const res = await changeName(id, userStore.name)
+    //if (res.status == 0) {
+    //    ElMessage({
+    //        message: '修改成功',
+    //        type: 'success',
+    //    })
+    //} else {
+    //    ElMessage({
+    //        message: '修改失败',
+    //        type: 'error',
+    //    })
+    //}
 }
 
 const ChangeSex = async () => {
