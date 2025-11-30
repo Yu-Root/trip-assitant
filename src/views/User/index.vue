@@ -50,7 +50,7 @@
                             </el-select>
                         </div>
                         <div class="account-save-button">
-                            <el-button @click="changeSex">修改性别</el-button>
+                            <el-button @click="ChangeSex">修改性别</el-button>
                         </div>
                     </div>
                     <div class="account-info-wrapped">
@@ -78,7 +78,7 @@ import { useRouter } from 'vue-router'
 
 import { useUserStore } from '@/stores/UserStore'
 
-import { changeName } from '@/api/userinfo'
+import { changeName, changeSex } from '@/api/userinfo'
 
 const userStore = useUserStore()
 console.log(userStore)
@@ -122,7 +122,6 @@ const openChangePassword = () => {
 const ChangeName = async () => {
     const id = localStorage.getItem('id')
     const res = await changeName(id, userStore.name)
-    console.log(res)
     if (res.status == 0) {
         ElMessage({
             message: '修改成功',
@@ -136,8 +135,23 @@ const ChangeName = async () => {
     }
 }
 
-const changeSex = () => {
-    // 保存性别
+const ChangeSex = async () => {
+    const id = localStorage.getItem('id')
+    console.log(id)
+    console.log(userStore.sex)
+    const res = await changeSex(id, userStore.sex)
+    console.log(res)
+    if (res.status == 0) {
+        ElMessage({
+            message: '修改成功',
+            type: 'success',
+        })
+    } else {
+        ElMessage({
+            message: '修改失败',
+            type: 'error',
+        })
+    }
 }
 
 const changeEmail = () => {

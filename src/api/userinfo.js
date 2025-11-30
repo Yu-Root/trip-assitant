@@ -20,3 +20,14 @@ export const changeName = (id, name) => {
         }
     })
 }
+
+export const changeSex = (id, sex) => {
+    return instance({
+        url: '/user/changeSex',
+        method: 'POST',
+        data: {
+            id,
+            sex
+        }
+    })
+}

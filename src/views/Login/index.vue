@@ -80,7 +80,6 @@ const loginForm = reactive({
 const Login = async () => {
     const res = await login(loginForm)
 
-    console.log(res)
     if (res.status == 0) {
         const { id } = res.results
         const { token } = res
