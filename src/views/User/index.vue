@@ -68,12 +68,14 @@
             </el-tabs>
         </div>
     </div>
-    <SettingDialog ref="setting"></SettingDialog>
+    <SettingDialog v-model="dialogVisible" :title="dialogConfig.title" :fields="dialogConfig.fields"
+        :initial-value="dialogConfig.initialValue" :rules="dialogConfig.rules">
+    </SettingDialog>
 </template>
 
 <script setup>
 import { Plus, Close } from '@element-plus/icons-vue'
-import { onMounted, ref } from 'vue'
+import { onMounted, reactive, ref } from 'vue'
 import { ElMessage } from 'element-plus'
 import { useRouter } from 'vue-router'
 
@@ -91,7 +93,13 @@ const router = useRouter()
 const activeName = ref('first')
 const isMobile = ref(false)
 
-const setting = ref()
+const dialogVisible = ref(false);
+const dialogConfig = reactive({
+    title: '',
+    fields: [],
+    initialValue: {},
+    rules: {}
+})
 
 const goToHome = () => {
     router.push('/home')
