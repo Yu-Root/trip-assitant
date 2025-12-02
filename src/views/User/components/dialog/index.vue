@@ -1,5 +1,5 @@
 <template>
-    <el-dialog v-model="dialogSettingVisible" :title="tilte" align-center>
+    <el-dialog v-model="dialogSettingVisible" :title="tilte" align-center @close="handleCancel">
         <el-form :model="nameForm">
             <el-form-item>
                 <el-input v-model="nameForm.oldName"></el-input>
@@ -15,16 +15,11 @@
 </template>
 
 <script setup>
-import { reactive, ref } from 'vue';
-
-const nameForm = reactive({
-    oldName: '',
-    newName: ''
-})
+import { reactive, ref, watch } from 'vue';
 
 const props = defineProps({
     title: {
-        type: string,
+        type: String,
         required: true
     },
     fields: {
@@ -32,9 +27,45 @@ const props = defineProps({
         required: true,
         validator: (val) => val.every(item => ['key', 'label', 'type'].every(k => k in item))
     },
+    initialValue: {
+        type: Object,
+        default: () => ({})
+    },
+    dialogValue: {
+        type: Boolean,
+        default: false
+    },
+    rules: {
+        type: Object,
+        default: () => ({})
+    }
 })
 
-const dialogSettingVisible = ref(false)
+const formRef = ref(null)
+const dialogSettingVisible = ref(props.dialogValue)
+const formData = reactive({})
+
+watch(
+    () => props.initialValue,
+    (newVal) => {
+        Object.assign(formData, newVal)
+    },
+    { immediate: true }
+)
+
+watch(
+    () => props.dialogValue,
+    (newVal) => {
+        dialogSettingVisible.value = newVal
+    }
+)
+
+const emit = defineEmits(['confirm', 'cancel', 'update:modelValue'])
+
+const handleConfirm = () => {
+
+}
+
 const openDialog = () => {
     dialogSettingVisible.value = true
 }
