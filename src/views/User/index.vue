@@ -50,7 +50,7 @@
                             </el-select>
                         </div>
                         <div class="account-save-button">
-                            <el-button @click="ChangeSex">修改性别</el-button>
+                            <el-button @click="openSet('gender')">修改性别</el-button>
                         </div>
                     </div>
                     <div class="account-info-wrapped">
@@ -59,7 +59,7 @@
                             <el-input v-model="userStore.email"></el-input>
                         </div>
                         <div class="account-save-button">
-                            <el-button @click="ChangeEmail">修改邮箱</el-button>
+                            <el-button @click="openSet('email')">修改邮箱</el-button>
                         </div>
                     </div>
                 </el-tab-pane>
@@ -136,6 +136,18 @@ const openSet = (type) => {
             dialogConfig.initialValue = { oldGender: 'male', newGender: '' }; // 假设当前性别是男
             dialogConfig.rules = {
                 newGender: [{ required: true, message: '请选择新性别', trigger: 'change' }]
+            };
+            break;
+
+        case 'email':
+            dialogConfig.title = '修改邮箱';
+            dialogConfig.fields = [
+                { key: 'oldEmail', label: '旧邮箱', type: 'input', placeholder: '' },
+                { key: 'newEmail', label: '新邮箱', type: 'input', placeholder: '请输入新邮箱' }
+            ];
+            dialogConfig.initialValue = { oldEmail: '123@qq.com', newEmail: '' };
+            dialogConfig.rules = {
+                newEmail: [{ required: true, message: '请输入新邮箱', trigger: 'blur' }]
             };
             break;
     }
