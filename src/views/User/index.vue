@@ -87,7 +87,6 @@ import { changeName, changeSex, changeEmail } from '@/api/userinfo'
 import SettingDialog from '@/views/User/components/dialog/index.vue'
 
 const userStore = useUserStore()
-console.log(userStore)
 
 const router = useRouter()
 
@@ -110,7 +109,7 @@ const openSet = (type) => {
                 { key: 'oldName', label: '旧名称', type: 'input', placeholder: '' },
                 { key: 'newName', label: '新名称', type: 'input', placeholder: '请输入新姓名' }
             ];
-            dialogConfig.initialValue = { oldName: '张三', newName: '' };
+            dialogConfig.initialValue = { oldName: userStore.name, newName: '' };
             dialogConfig.rules = {
                 newName: [{ required: true, message: '请输入新姓名', trigger: 'blur' }]
             };
@@ -133,7 +132,7 @@ const openSet = (type) => {
                     options: [{ label: '男', value: 'male' }, { label: '女', value: 'female' }]
                 }
             ];
-            dialogConfig.initialValue = { oldGender: 'male', newGender: '' }; // 假设当前性别是男
+            dialogConfig.initialValue = { oldGender: userStore.sex, newGender: '' };
             dialogConfig.rules = {
                 newGender: [{ required: true, message: '请选择新性别', trigger: 'change' }]
             };
@@ -145,7 +144,7 @@ const openSet = (type) => {
                 { key: 'oldEmail', label: '旧邮箱', type: 'input', placeholder: '' },
                 { key: 'newEmail', label: '新邮箱', type: 'input', placeholder: '请输入新邮箱' }
             ];
-            dialogConfig.initialValue = { oldEmail: '123@qq.com', newEmail: '' };
+            dialogConfig.initialValue = { oldEmail: userStore.email, newEmail: '' };
             dialogConfig.rules = {
                 newEmail: [{ required: true, message: '请输入新邮箱', trigger: 'blur' }]
             };
