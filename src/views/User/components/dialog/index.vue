@@ -1,5 +1,5 @@
 <template>
-    <el-dialog v-model="dialogSettingVisible" :title="tilte" align-center @close="handleCancel">
+    <el-dialog v-model="dialogSettingVisible" :title="title" align-center @close="handleCancel">
         <el-form :model="formData" :rules="rules" ref="formRef">
             <el-form-item v-for="field in fields" :key="field.key" :label="field.label" :prop="field.key">
                 <el-input v-if="field.type === 'input'" v-model="formData[field.key]"
