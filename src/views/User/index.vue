@@ -38,7 +38,7 @@
                             <el-input v-model="userStore.name"></el-input>
                         </div>
                         <div class="account-save-button">
-                            <el-button @click="ChangeName">修改姓名</el-button>
+                            <el-button @click="openSet('name')">修改姓名</el-button>
                         </div>
                     </div>
                     <div class="account-info-wrapped">
@@ -69,7 +69,8 @@
         </div>
     </div>
     <SettingDialog v-model="dialogVisible" :title="dialogConfig.title" :fields="dialogConfig.fields"
-        :initial-value="dialogConfig.initialValue" :rules="dialogConfig.rules">
+        :initial-value="dialogConfig.initialValue" :rules="dialogConfig.rules" @confirm="handleConfirm"
+        @cancel="handleCancel">
     </SettingDialog>
 </template>
 
@@ -100,6 +101,55 @@ const dialogConfig = reactive({
     initialValue: {},
     rules: {}
 })
+
+const openSet = (type) => {
+    switch (type) {
+        case 'name':
+            dialogConfig.title = '修改姓名';
+            dialogConfig.fields = [
+                { key: 'oldName', label: '旧名称', type: 'input', placeholder: '' },
+                { key: 'newName', label: '新名称', type: 'input', placeholder: '请输入新姓名' }
+            ];
+            dialogConfig.initialValue = { oldName: '张三', newName: '' };
+            dialogConfig.rules = {
+                newName: [{ required: true, message: '请输入新姓名', trigger: 'blur' }]
+            };
+            break;
+
+        case 'gender':
+            dialogConfig.title = '修改性别';
+            dialogConfig.fields = [
+                {
+                    key: 'oldGender',
+                    label: '旧性别',
+                    type: 'select',
+                    options: [{ label: '男', value: 'male' }, { label: '女', value: 'female' }]
+                },
+                {
+                    key: 'newGender',
+                    label: '新性别',
+                    type: 'select',
+                    placeholder: '请选择新性别',
+                    options: [{ label: '男', value: 'male' }, { label: '女', value: 'female' }]
+                }
+            ];
+            dialogConfig.initialValue = { oldGender: 'male', newGender: '' }; // 假设当前性别是男
+            dialogConfig.rules = {
+                newGender: [{ required: true, message: '请选择新性别', trigger: 'change' }]
+            };
+            break;
+    }
+    dialogVisible.value = true;
+}
+
+const handleConfirm = (data) => {
+    console.log('修改后的数据：', data);
+};
+
+const handleCancel = () => {
+    console.log('取消修改');
+};
+
 
 const goToHome = () => {
     router.push('/home')
