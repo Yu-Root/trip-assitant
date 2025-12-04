@@ -29,7 +29,7 @@
                     <div class="account-info-wrapped">
                         <span>用户密码：</span>
                         <div class="account-info-content">
-                            <el-button @click="openChangePassword">修改密码</el-button>
+                            <el-button @click="openSet('password')">修改密码</el-button>
                         </div>
                     </div>
                     <div class="account-info-wrapped">
@@ -147,6 +147,19 @@ const openSet = (type) => {
             dialogConfig.initialValue = { oldEmail: userStore.email, newEmail: '' };
             dialogConfig.rules = {
                 newEmail: [{ required: true, message: '请输入新邮箱', trigger: 'blur' }]
+            };
+            break;
+
+        case 'password':
+            dialogConfig.title = '修改密码';
+            dialogConfig.fields = [
+                { key: 'oldPassword', label: '旧密码', type: 'input', placeholder: '请输入旧密码' },
+                { key: 'newPassword', label: '新密码', type: 'input', placeholder: '请输入新密码' }
+            ];
+            dialogConfig.initialValue = { oldEmail: '', newEmail: '' };
+            dialogConfig.rules = {
+                oldPassword: [{ required: true, message: '请输入旧密码', trigger: 'blur' }],
+                newPassword: [{ required: true, message: '请输入新密码', trigger: 'blur' }]
             };
             break;
     }
