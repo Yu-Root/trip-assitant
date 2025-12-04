@@ -243,46 +243,6 @@ const beforeAvatarUpload = (rawFile) => {
     return true
 }
 
-
-const openChangePassword = () => {
-    // 打开修改密码对话框
-}
-
-const ChangeSex = async () => {
-    const id = localStorage.getItem('id')
-    const res = await changeSex(id, userStore.sex)
-    console.log(res)
-    if (res.status == 0) {
-        ElMessage({
-            message: '修改成功',
-            type: 'success',
-        })
-    } else {
-        ElMessage({
-            message: '修改失败',
-            type: 'error',
-        })
-    }
-}
-
-const ChangeEmail = async () => {
-    const id = localStorage.getItem('id')
-    console.log(userStore.email)
-    const res = await changeEmail(id, userStore.email)
-    console.log(res)
-    if (res.status == 0) {
-        ElMessage({
-            message: '修改成功',
-            type: 'success',
-        })
-    } else {
-        ElMessage({
-            message: '修改失败',
-            type: 'error',
-        })
-    }
-}
-
 onMounted(() => {
     checkScreenSize()
     window.addEventListener('resize', checkScreenSize)
