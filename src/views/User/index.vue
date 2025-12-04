@@ -118,14 +118,14 @@ const openSet = (type) => {
                     key: 'oldGender',
                     label: '旧性别',
                     type: 'select',
-                    options: [{ label: '男', value: 'male' }, { label: '女', value: 'female' }]
+                    options: [{ label: '男', value: '男' }, { label: '女', value: '女' }]
                 },
                 {
                     key: 'newGender',
                     label: '新性别',
                     type: 'select',
                     placeholder: '请选择新性别',
-                    options: [{ label: '男', value: 'male' }, { label: '女', value: 'female' }]
+                    options: [{ label: '男', value: '男' }, { label: '女', value: '女' }]
                 }
             ];
             dialogConfig.initialValue = { oldGender: userStore.sex, newGender: '' };
