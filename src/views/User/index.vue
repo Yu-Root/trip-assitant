@@ -35,7 +35,7 @@
                     <div class="account-info-wrapped">
                         <span>用户昵称：</span>
                         <div class="account-info-content">
-                            <el-input v-model="userStore.name"></el-input>
+                            <el-input v-model="userStore.name" disabled></el-input>
                         </div>
                         <div class="account-save-button">
                             <el-button @click="openSet('name')">修改姓名</el-button>
@@ -44,10 +44,7 @@
                     <div class="account-info-wrapped">
                         <span>用户性别：</span>
                         <div class="account-info-content">
-                            <el-select v-model="userStore.sex">
-                                <el-option label="男" value="男" />
-                                <el-option label="女" value="女" />
-                            </el-select>
+                            <el-input v-model="userStore.sex" disabled></el-input>
                         </div>
                         <div class="account-save-button">
                             <el-button @click="openSet('gender')">修改性别</el-button>
@@ -69,8 +66,7 @@
         </div>
     </div>
     <SettingDialog v-model="dialogVisible" :title="dialogConfig.title" :fields="dialogConfig.fields"
-        :initial-value="dialogConfig.initialValue" :rules="dialogConfig.rules" @confirm="handleConfirm"
-        @cancel="handleCancel">
+        :initial-value="dialogConfig.initialValue" :rules="dialogConfig.rules" @confirm="handleConfirm">
     </SettingDialog>
 </template>
 
@@ -166,10 +162,56 @@ const openSet = (type) => {
     dialogVisible.value = true;
 }
 
-const handleConfirm = (data) => {
+const handleConfirm = async (data) => {
     console.log('修改后的数据：', data);
+    const id = localStorage.getItem('id')
+    const { newName, newEmail, newGender } = data
+    if (newName) {
+        const res = await changeName(id, newName)
+        if (res.status == 0) {
+            userStore.name = newName
+            ElMessage({
+                message: '修改成功',
+                type: 'success',
+            })
+        } else {
+            ElMessage({
+                message: '修改失败',
+                type: 'error',
+            })
+        }
+    } else if (newGender) {
+        const res = await changeSex(id, newGender)
+        if (res.status == 0) {
+            userStore.sex = newGender
+            ElMessage({
+                message: '修改成功',
+                type: 'success',
+            })
+        } else {
+            ElMessage({
+                message: '修改失败',
+                type: 'error',
+            })
+        }
+    } else if (newEmail) {
+        const res = await changeEmail(id, newEmail)
+        if (res.status == 0) {
+            userStore.email = newEmail
+            ElMessage({
+                message: '修改成功',
+                type: 'success',
+            })
+        } else {
+            ElMessage({
+                message: '修改失败',
+                type: 'error',
+            })
+        }
+    }
 };
 
+//? why 2
 const handleCancel = () => {
     console.log('取消修改');
 };
@@ -204,23 +246,6 @@ const beforeAvatarUpload = (rawFile) => {
 
 const openChangePassword = () => {
     // 打开修改密码对话框
-}
-
-const ChangeName = async () => {
-    setting.value.openDialog()
-    //const id = localStorage.getItem('id')
-    //const res = await changeName(id, userStore.name)
-    //if (res.status == 0) {
-    //    ElMessage({
-    //        message: '修改成功',
-    //        type: 'success',
-    //    })
-    //} else {
-    //    ElMessage({
-    //        message: '修改失败',
-    //        type: 'error',
-    //    })
-    //}
 }
 
 const ChangeSex = async () => {

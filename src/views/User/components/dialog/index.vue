@@ -78,7 +78,7 @@ const handleConfirm = () => {
 }
 
 const handleCancel = () => {
-    emit('cancel')
+    //emit('cancel')
     dialogSettingVisible.value = false
     emit('update:modelValue', false)
     formRef.value.resetFields()
