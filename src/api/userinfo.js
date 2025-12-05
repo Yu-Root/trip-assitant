@@ -42,3 +42,14 @@ export const changeEmail = (id, email) => {
         }
     })
 }
+
+export const changePassword = (id, password) => {
+    return instance({
+        url: '/user/changePassword',
+        method: 'POST',
+        data: {
+            id,
+            password
+        }
+    })
+}
