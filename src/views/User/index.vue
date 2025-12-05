@@ -78,7 +78,7 @@ import { useRouter } from 'vue-router'
 
 import { useUserStore } from '@/stores/UserStore'
 
-import { changeName, changeSex, changeEmail } from '@/api/userinfo'
+import { changeName, changeSex, changeEmail, changePassword } from '@/api/userinfo'
 
 import SettingDialog from '@/views/User/components/dialog/index.vue'
 
@@ -152,7 +152,7 @@ const openSet = (type) => {
                 { key: 'oldPassword', label: '旧密码', type: 'input', placeholder: '请输入旧密码' },
                 { key: 'newPassword', label: '新密码', type: 'input', placeholder: '请输入新密码' }
             ];
-            dialogConfig.initialValue = { oldEmail: '', newEmail: '' };
+            dialogConfig.initialValue = { oldPassword: '', newPassword: '' };
             dialogConfig.rules = {
                 oldPassword: [{ required: true, message: '请输入旧密码', trigger: 'blur' }],
                 newPassword: [{ required: true, message: '请输入新密码', trigger: 'blur' }]
@@ -165,7 +165,7 @@ const openSet = (type) => {
 const handleConfirm = async (data) => {
     console.log('修改后的数据：', data);
     const id = localStorage.getItem('id')
-    const { newName, newEmail, newGender } = data
+    const { newName, newEmail, newGender, newPassword } = data
     if (newName) {
         const res = await changeName(id, newName)
         if (res.status == 0) {
@@ -198,6 +198,19 @@ const handleConfirm = async (data) => {
         const res = await changeEmail(id, newEmail)
         if (res.status == 0) {
             userStore.email = newEmail
+            ElMessage({
+                message: '修改成功',
+                type: 'success',
+            })
+        } else {
+            ElMessage({
+                message: '修改失败',
+                type: 'error',
+            })
+        }
+    } else if (newPassword) {
+        const res = await changePassword(id, newPassword)
+        if (res.status === 0) {
             ElMessage({
                 message: '修改成功',
                 type: 'success',
