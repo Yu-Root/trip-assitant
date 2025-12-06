@@ -53,7 +53,7 @@
                     <div class="account-info-wrapped">
                         <span>用户邮箱：</span>
                         <div class="account-info-content">
-                            <el-input v-model="userStore.email"></el-input>
+                            <el-input v-model="userStore.email" disabled></el-input>
                         </div>
                         <div class="account-save-button">
                             <el-button @click="openSet('email')">修改邮箱</el-button>
