@@ -13,7 +13,12 @@
                 </div>
             </div>
             <div class="trip-header-user-wrapper">
-                <span class="login">登录/注册</span>
+                <div v-if="userStore.account">
+                    尊敬的 {{ userStore.name }} 欢迎您登录本系统
+                </div>
+                <div v-else>
+                    <span class="login" @click="GoToPages('/login')">登录/注册</span>
+                </div>
             </div>
         </div>
     </header>
@@ -21,6 +26,10 @@
 
 <script setup>
 import { RouterLink, useRouter } from 'vue-router';
+
+import { useUserStore } from '@/stores/UserStore';
+
+const userStore = useUserStore()
 
 const router = useRouter()
 
