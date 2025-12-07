@@ -53,3 +53,15 @@ export const changePassword = (id, password) => {
         }
     })
 }
+
+export const bindAccount = (account, onlyId, url) => {
+    return instance({
+        url: '/user/bindAccount',
+        method: 'POST',
+        data: {
+            account,
+            onlyId,
+            url
+        }
+    })
+}

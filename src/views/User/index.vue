@@ -78,7 +78,7 @@ import { useRouter } from 'vue-router'
 
 import { useUserStore } from '@/stores/UserStore'
 
-import { changeName, changeSex, changeEmail, changePassword } from '@/api/userinfo'
+import { changeName, changeSex, changeEmail, changePassword, bindAccount } from '@/api/userinfo'
 
 import SettingDialog from '@/views/User/components/dialog/index.vue'
 
@@ -239,11 +239,21 @@ const checkScreenSize = () => {
 }
 
 const avatarUrl = ref(`${import.meta.env.VITE_API_BASEURL}/user/uploadAvatar`)
-const handleAvatarSuccess = (
-    response,
-    uploadFile
-) => {
-
+const handleAvatarSuccess = (response) => {
+    if (response.status == 0) {
+        userStore.$patch({
+            imageUrl: response.url
+        })
+        ElMessage({
+            message: '更新头像成功',
+            type: 'success',
+        });
+        (async () => {
+            const res = await bindAccount(userStore.account, response.onlyId, response.url)
+        })()
+    } else {
+        ElMessage.error('更新头像失败！请重新上传')
+    }
 }
 const beforeAvatarUpload = (rawFile) => {
     if (rawFile.type !== 'image/jpeg') {
@@ -265,6 +275,9 @@ onMounted(() => {
 <style lang="scss" scoped>
 .avatar-uploader .avatar {
     display: block;
+    object-fit: contain;
+    width: 100%;
+    height: 100%;
 }
 
 //公共
@@ -357,25 +370,24 @@ onMounted(() => {
                     align-items: center;
 
                     .avatar-uploader {
-                        .avatar-uploader-trigger {
-                            width: 80px;
-                            height: 80px;
-                            border: 1px dashed #d9d9d9;
-                            border-radius: 6px;
-                            cursor: pointer;
-                            display: flex;
-                            align-items: center;
-                            justify-content: center;
-                            background-color: #f5f7fa;
+                        width: 80px;
+                        height: 80px;
+                        overflow: hidden;
+                        border: 1px dashed #d9d9d9;
+                        border-radius: 20px;
+                        cursor: pointer;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        background-color: #f5f7fa;
 
-                            &:hover {
-                                border-color: #409eff;
-                            }
+                        &:hover {
+                            border-color: #409eff;
+                        }
 
-                            .el-icon {
-                                font-size: 24px;
-                                color: #8c939d;
-                            }
+                        .el-icon {
+                            font-size: 24px;
+                            color: #8c939d;
                         }
                     }
                 }
