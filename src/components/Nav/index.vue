@@ -13,13 +13,17 @@
                 </div>
             </div>
             <div class="trip-header-user-wrapper">
-                <div v-if="userStore.account">
-                    尊敬的
+                <div v-if="userStore.account" class="welcome">
+                    <div>
+                        尊敬的
+                    </div>
                     <div>
                         <el-avatar :size="20" :src="userStore.imageUrl" />
                     </div>
-                    {{ userStore.name }}
-                    欢迎您登录本系统
+                    <div>
+                        {{ userStore.name }}
+                        欢迎您登录本系统
+                    </div>
                 </div>
                 <div v-else>
                     <span class="login" @click="GoToPages('/login')">登录/注册</span>
@@ -92,6 +96,10 @@ const GoToPages = (path) => {
             display: flex;
             justify-content: center;
             align-items: center;
+
+            .welcome {
+                display: flex;
+            }
 
             .login {
                 margin-right: 10px;
