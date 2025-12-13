@@ -15,6 +15,7 @@
             <div class="trip-header-user-wrapper">
                 <div v-if="userStore.account">
                     尊敬的 {{ userStore.name }} 欢迎您登录本系统
+                    <el-avatar :size="10" :src="userStore.imageUrl" />
                 </div>
                 <div v-else>
                     <span class="login" @click="GoToPages('/login')">登录/注册</span>
