@@ -17,7 +17,7 @@
                     <div>
                         尊敬的
                     </div>
-                    <div>
+                    <div class="avatar">
                         <el-avatar :size="20" :src="userStore.imageUrl" />
                     </div>
                     <div>
@@ -99,6 +99,10 @@ const GoToPages = (path) => {
 
             .welcome {
                 display: flex;
+
+                .avatar {
+                    margin-left: 8px;
+                }
             }
 
             .login {
