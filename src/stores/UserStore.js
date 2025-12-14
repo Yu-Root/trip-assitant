@@ -16,7 +16,7 @@ export const useUserStore = defineStore('User', () => {
         //console.log('完整的API响应:', res) 
         //console.log('results数据:', res.results) 
         if (res.status == 0) {
-            imageUrl.value = res.results.imageUrl
+            imageUrl.value = res.results.image_url
             name.value = res.results.name
             sex.value = res.results.sex
             account.value = res.results.account
