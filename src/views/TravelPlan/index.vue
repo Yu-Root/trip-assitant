@@ -74,7 +74,7 @@
                 <div class="HotCity">
                     <el-row :gutter="30">
                         <el-col :span="6">
-                            <div class="city-card">
+                            <div class="city-card" @click="openInfo">
                                 <div class="city-img">
                                     <el-image src="https://picsum.photos/id/1016/800/600" alt="北京" class="city-pic"
                                         lazy>
@@ -407,15 +407,25 @@
             </div>
         </footer>
     </div>
+    <CityInfo v-model="dialogVisible"></CityInfo>
 </template>
 
 <script setup>
 import { Position, Search, Picture, Loading } from '@element-plus/icons-vue'
 import { useRouter } from 'vue-router';
+
 import Nav from '@/components/Nav/index.vue'
+import CityInfo from './components/cityInfo.vue';
+import { ref } from 'vue';
 
 const router = useRouter()
 
+const dialogVisible = ref(false)
+
+const openInfo = () => {
+    dialogVisible.value = true
+    console.log(1)
+}
 const GoToPlan = () => {
     router.push('/plan_page')
 }
