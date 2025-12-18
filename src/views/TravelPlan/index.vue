@@ -73,11 +73,10 @@
                 </div>
                 <div class="HotCity">
                     <el-row :gutter="30">
-                        <el-col :span="6">
-                            <div class="city-card" @click="openInfo">
+                        <el-col :span="6" v-for="city in cities" :key="city.id">
+                            <div class="city-card" @click="openInfo(city)">
                                 <div class="city-img">
-                                    <el-image src="https://picsum.photos/id/1016/800/600" alt="北京" class="city-pic"
-                                        lazy>
+                                    <el-image :src="city.src" :alt="city.alt" class="city-pic" lazy>
                                         <template #placeholder>
                                             <div class="image-slot">加载中...</div>
                                         </template>
@@ -92,299 +91,9 @@
                                     <div class="city-overlay"></div>
                                 </div>
                                 <div class="city-info">
-                                    <div class="grid-content">北京</div>
+                                    <div class="grid-content">{{ city.name }}</div>
                                     <div class="city-desc-wrapper">
-                                        <span class="city-desc">古都风貌与现代繁华的完美融合，感受历史的厚重与时代的脉搏</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </el-col>
-                        <el-col :span="6">
-                            <div class="city-card">
-                                <div class="city-img">
-                                    <el-image src="https://picsum.photos/id/1019/800/600" alt="上海" class="city-pic"
-                                        lazy>
-                                        <template #placeholder>
-                                            <div class="image-slot">加载中...</div>
-                                        </template>
-                                        <template #error>
-                                            <div class="image-slot">
-                                                <el-icon>
-                                                    <Picture />
-                                                </el-icon>
-                                            </div>
-                                        </template>
-                                    </el-image>
-                                    <div class="city-overlay"></div>
-                                </div>
-                                <div class="city-info">
-                                    <div class="grid-content">上海</div>
-                                    <div class="city-desc-wrapper">
-                                        <span class="city-desc">国际大都市的魅力，外滩的夜景与弄堂的风情交相辉映</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </el-col>
-                        <el-col :span="6">
-                            <div class="city-card">
-                                <div class="city-img">
-                                    <el-image src="https://picsum.photos/id/1031/800/600" alt="广州" class="city-pic"
-                                        lazy>
-                                        <template #placeholder>
-                                            <div class="image-slot">加载中...</div>
-                                        </template>
-                                        <template #error>
-                                            <div class="image-slot">
-                                                <el-icon>
-                                                    <Picture />
-                                                </el-icon>
-                                            </div>
-                                        </template>
-                                    </el-image>
-                                    <div class="city-overlay"></div>
-                                </div>
-                                <div class="city-info">
-                                    <div class="grid-content">广州</div>
-                                    <div class="city-desc-wrapper">
-                                        <span class="city-desc">千年商都，美食天堂，岭南文化的发源地与传承者</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </el-col>
-                        <el-col :span="6">
-                            <div class="city-card">
-                                <div class="city-img">
-                                    <el-image src="https://picsum.photos/id/1033/800/600" alt="深圳" class="city-pic"
-                                        lazy>
-                                        <template #placeholder>
-                                            <div class="image-slot">加载中...</div>
-                                        </template>
-                                        <template #error>
-                                            <div class="image-slot">
-                                                <el-icon>
-                                                    <Picture />
-                                                </el-icon>
-                                            </div>
-                                        </template>
-                                    </el-image>
-                                    <div class="city-overlay"></div>
-                                </div>
-                                <div class="city-info">
-                                    <div class="grid-content">深圳</div>
-                                    <div class="city-desc-wrapper">
-                                        <span class="city-desc">创新之城，从小渔村到国际大都市的蜕变奇迹</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </el-col>
-                    </el-row>
-                    <el-row :gutter="30">
-                        <el-col :span="6">
-                            <div class="city-card">
-                                <div class="city-img">
-                                    <el-image src="https://picsum.photos/id/1036/800/600" alt="杭州" class="city-pic"
-                                        lazy>
-                                        <template #placeholder>
-                                            <div class="image-slot">加载中...</div>
-                                        </template>
-                                        <template #error>
-                                            <div class="image-slot">
-                                                <el-icon>
-                                                    <Picture />
-                                                </el-icon>
-                                            </div>
-                                        </template>
-                                    </el-image>
-                                    <div class="city-overlay"></div>
-                                </div>
-                                <div class="city-info">
-                                    <div class="grid-content">杭州</div>
-                                    <div class="city-desc-wrapper">
-                                        <span class="city-desc">上有天堂下有苏杭，西湖美景与互联网创新的完美结合</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </el-col>
-                        <el-col :span="6">
-                            <div class="city-card">
-                                <div class="city-img">
-                                    <el-image src="https://picsum.photos/id/1039/800/600" alt="成都" class="city-pic"
-                                        lazy>
-                                        <template #placeholder>
-                                            <div class="image-slot">加载中...</div>
-                                        </template>
-                                        <template #error>
-                                            <div class="image-slot">
-                                                <el-icon>
-                                                    <Picture />
-                                                </el-icon>
-                                            </div>
-                                        </template>
-                                    </el-image>
-                                    <div class="city-overlay"></div>
-                                </div>
-                                <div class="city-info">
-                                    <div class="grid-content">成都</div>
-                                    <div class="city-desc-wrapper">
-                                        <span class="city-desc">天府之国，悠闲的生活节奏与火辣的美食文化</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </el-col>
-                        <el-col :span="6">
-                            <div class="city-card">
-                                <div class="city-img">
-                                    <el-image src="https://picsum.photos/id/1043/800/600" alt="重庆" class="city-pic"
-                                        lazy>
-                                        <template #placeholder>
-                                            <div class="image-slot">加载中...</div>
-                                        </template>
-                                        <template #error>
-                                            <div class="image-slot">
-                                                <el-icon>
-                                                    <Picture />
-                                                </el-icon>
-                                            </div>
-                                        </template>
-                                    </el-image>
-                                    <div class="city-overlay"></div>
-                                </div>
-                                <div class="city-info">
-                                    <div class="grid-content">重庆</div>
-                                    <div class="city-desc-wrapper">
-                                        <span class="city-desc">8D魔幻山城，长江与嘉陵江交汇处的立体都市</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </el-col>
-                        <el-col :span="6">
-                            <div class="city-card">
-                                <div class="city-img">
-                                    <el-image src="https://picsum.photos/id/1052/800/600" alt="西安" class="city-pic"
-                                        lazy>
-                                        <template #placeholder>
-                                            <div class="image-slot">加载中...</div>
-                                        </template>
-                                        <template #error>
-                                            <div class="image-slot">
-                                                <el-icon>
-                                                    <Picture />
-                                                </el-icon>
-                                            </div>
-                                        </template>
-                                    </el-image>
-                                    <div class="city-overlay"></div>
-                                </div>
-                                <div class="city-info">
-                                    <div class="grid-content">西安</div>
-                                    <div class="city-desc-wrapper">
-                                        <span class="city-desc">十三朝古都，兵马俑见证历史，羊肉泡馍香气四溢</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </el-col>
-                    </el-row>
-                    <el-row :gutter="30">
-                        <el-col :span="6">
-                            <div class="city-card">
-                                <div class="city-img">
-                                    <el-image src="https://picsum.photos/id/1054/800/600" alt="厦门" class="city-pic"
-                                        lazy>
-                                        <template #placeholder>
-                                            <div class="image-slot">加载中...</div>
-                                        </template>
-                                        <template #error>
-                                            <div class="image-slot">
-                                                <el-icon>
-                                                    <Picture />
-                                                </el-icon>
-                                            </div>
-                                        </template>
-                                    </el-image>
-                                    <div class="city-overlay"></div>
-                                </div>
-                                <div class="city-info">
-                                    <div class="grid-content">厦门</div>
-                                    <div class="city-desc-wrapper">
-                                        <span class="city-desc">海上花园城市，鼓浪屿的琴声与环岛路的海风</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </el-col>
-                        <el-col :span="6">
-                            <div class="city-card">
-                                <div class="city-img">
-                                    <el-image src="https://picsum.photos/id/1057/800/600" alt="青岛" class="city-pic"
-                                        lazy>
-                                        <template #placeholder>
-                                            <div class="image-slot">加载中...</div>
-                                        </template>
-                                        <template #error>
-                                            <div class="image-slot">
-                                                <el-icon>
-                                                    <Picture />
-                                                </el-icon>
-                                            </div>
-                                        </template>
-                                    </el-image>
-                                    <div class="city-overlay"></div>
-                                </div>
-                                <div class="city-info">
-                                    <div class="grid-content">青岛</div>
-                                    <div class="city-desc-wrapper">
-                                        <span class="city-desc">红瓦绿树碧海蓝天，啤酒飘香的海滨城市</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </el-col>
-                        <el-col :span="6">
-                            <div class="city-card">
-                                <div class="city-img">
-                                    <el-image src="https://picsum.photos/id/1060/800/600" alt="南京" class="city-pic"
-                                        lazy>
-                                        <template #placeholder>
-                                            <div class="image-slot">加载中...</div>
-                                        </template>
-                                        <template #error>
-                                            <div class="image-slot">
-                                                <el-icon>
-                                                    <Picture />
-                                                </el-icon>
-                                            </div>
-                                        </template>
-                                    </el-image>
-                                    <div class="city-overlay"></div>
-                                </div>
-                                <div class="city-info">
-                                    <div class="grid-content">南京</div>
-                                    <div class="city-desc-wrapper">
-                                        <span class="city-desc">六朝古都，秦淮河的夜景与中山陵的庄严肃穆</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </el-col>
-                        <el-col :span="6">
-                            <div class="city-card">
-                                <div class="city-img">
-                                    <el-image src="https://picsum.photos/id/1063/800/600" alt="武汉" class="city-pic"
-                                        lazy>
-                                        <template #placeholder>
-                                            <div class="image-slot">加载中...</div>
-                                        </template>
-                                        <template #error>
-                                            <div class="image-slot">
-                                                <el-icon>
-                                                    <Picture />
-                                                </el-icon>
-                                            </div>
-                                        </template>
-                                    </el-image>
-                                    <div class="city-overlay"></div>
-                                </div>
-                                <div class="city-info">
-                                    <div class="grid-content">武汉</div>
-                                    <div class="city-desc-wrapper">
-                                        <span class="city-desc">九省通衢，长江汉水交汇，热干面香气满街</span>
+                                        <span class="city-desc">{{ city.desc }}</span>
                                     </div>
                                 </div>
                             </div>
@@ -426,10 +135,97 @@ const openInfo = () => {
     dialogVisible.value = true
     console.log(1)
 }
+
 const GoToPlan = () => {
     router.push('/plan_page')
 }
 
+const cities = [
+    {
+        id: 1,
+        src: 'https://picsum.photos/id/1016/800/600',
+        alt: '北京',
+        name: '北京',
+        desc: '古都风貌与现代繁华的完美融合，感受历史的厚重与时代的脉搏'
+    },
+    {
+        id: 2,
+        src: 'https://picsum.photos/id/1019/800/600',
+        alt: '上海',
+        name: '上海',
+        desc: '国际大都市的魅力，外滩的夜景与弄堂的风情交相辉映'
+    },
+    {
+        id: 3,
+        src: 'https://picsum.photos/id/1031/800/600',
+        alt: '广州',
+        name: '广州',
+        desc: '千年商都，美食天堂，岭南文化的发源地与传承者'
+    },
+    {
+        id: 4,
+        src: 'https://picsum.photos/id/1033/800/600',
+        alt: '深圳',
+        name: '深圳',
+        desc: '创新之城，从小渔村到国际大都市的蜕变奇迹'
+    },
+    {
+        id: 5,
+        src: 'https://picsum.photos/id/1036/800/600',
+        alt: '杭州',
+        name: '杭州',
+        desc: '上有天堂下有苏杭，西湖美景与互联网创新的完美结合'
+    },
+    {
+        id: 6,
+        src: 'https://picsum.photos/id/1039/800/600',
+        alt: '成都',
+        name: '成都',
+        desc: '天府之国，悠闲的生活节奏与火辣的美食文化'
+    },
+    {
+        id: 7,
+        src: 'https://picsum.photos/id/1043/800/600',
+        alt: '重庆',
+        name: '重庆',
+        desc: '8D魔幻山城，长江与嘉陵江交汇处的立体都市'
+    },
+    {
+        id: 8,
+        src: 'https://picsum.photos/id/1052/800/600',
+        alt: '西安',
+        name: '西安',
+        desc: '十三朝古都，兵马俑见证历史，羊肉泡馍香气四溢'
+    },
+    {
+        id: 9,
+        src: 'https://picsum.photos/id/1054/800/600',
+        alt: '厦门',
+        name: '厦门',
+        desc: '海上花园城市，鼓浪屿的琴声与环岛路的海风'
+    },
+    {
+        id: 10,
+        src: 'https://picsum.photos/id/1057/800/600',
+        alt: '青岛',
+        name: '青岛',
+        desc: '红瓦绿树碧海蓝天，啤酒飘香的海滨城市'
+    },
+    {
+        id: 11,
+        src: 'https://picsum.photos/id/1060/800/600',
+        alt: '南京',
+        name: '南京',
+        desc: '六朝古都，秦淮河的夜景与中山陵的庄严肃穆'
+    },
+    {
+        id: 12,
+        src: 'https://picsum.photos/id/1063/800/600',
+        alt: '武汉',
+        name: '武汉',
+        desc: '九省通衢，长江汉水交汇，热干面香气满街'
+    }
+]
 </script>
 
 <style lang="scss" scoped>
