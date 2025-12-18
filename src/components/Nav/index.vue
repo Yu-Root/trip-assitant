@@ -140,7 +140,7 @@ const GoToPages = (path) => {
 
                     .nav-span {
                         font-size: 14px;
-                        padding: 6px 10px;
+                        padding: 6px 5px;
                     }
                 }
             }
@@ -161,6 +161,11 @@ const GoToPages = (path) => {
         .trip-header {
             padding: 0 30px;
             height: 40px;
+
+            .nav-span {
+                font-size: 14px;
+                padding: 6px 10px;
+            }
         }
     }
 }
