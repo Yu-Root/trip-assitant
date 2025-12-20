@@ -1,6 +1,13 @@
 <template>
     <el-dialog v-model="dialogCityInfoVisible" :title="title" align-center @close="handleCancel">
-
+        <div class="city-info">
+            <div class="city-img">
+                <img :src=imgUrl alt="">
+            </div>
+            <div class="city-desc">
+                <span>{{ desc }}</span>
+            </div>
+        </div>
     </el-dialog>
 </template>
 
@@ -9,8 +16,20 @@ import { reactive, ref, watch } from 'vue';
 
 const props = defineProps({
     title: {
-        title: String,
+        type: String,
         require: true
+    },
+    imgUrl: {
+        type: String,
+        require: true
+    },
+    desc: {
+        type: String,
+        require: true
+    },
+    initialValue: {
+        type: Object,
+        default: () => ({})
     },
     dialogValue: {
         type: Boolean,
@@ -19,6 +38,15 @@ const props = defineProps({
 })
 
 const dialogCityInfoVisible = ref(props.dialogValue)
+const infoData = reactive({})
+
+watch(
+    () => props.initialValue,
+    (newVal) => {
+        Object.assign(infoData, newVal)
+    },
+    { immediate: true }
+)
 
 watch(
     () => props.dialogValue,

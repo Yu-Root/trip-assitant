@@ -116,7 +116,8 @@
             </div>
         </footer>
     </div>
-    <CityInfo v-model="dialogVisible" :title="infoConfig.title"></CityInfo>
+    <CityInfo v-model="dialogVisible" :title="infoConfig.title" :img-url="infoConfig.imgUrl" :desc="infoConfig.desc">
+    </CityInfo>
 </template>
 
 <script setup>
@@ -131,12 +132,16 @@ const router = useRouter()
 
 const dialogVisible = ref(false)
 const infoConfig = reactive({
-    title: ''
+    title: '',
+    imgUrl: '',
+    desc: ''
 })
 
 const openInfo = (city) => {
     console.log(city)
     infoConfig.title = city.name
+    infoConfig.imgUrl = city.src
+    infoConfig.desc = city.desc
     dialogVisible.value = true
 
 }
