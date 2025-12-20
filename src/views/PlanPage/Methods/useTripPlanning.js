@@ -4,6 +4,7 @@ import {
     getDistance, showNotification, getTripDays
 } from '@/views/PlanPage/Methods/tripUtils'
 import { getLocation, fetchWeatherAndPOI } from '@/views/PlanPage/Methods/apiService'
+import { trigger } from '@vue/reactivity';
 
 export const useTripPlanning = () => {
     // 步骤状态
@@ -25,6 +26,13 @@ export const useTripPlanning = () => {
         budget: '',
         distance: null
     })
+
+    const forceUpdateDestination = (cityName) => {
+        tripData.destination = cityName
+        console.log(tripData.destination)
+        trigger(tripData, 'destination');
+        return Promise.resolve()
+    }
 
     // 计算属性
     const distanceInfo = computed(() => {
@@ -347,6 +355,7 @@ export const useTripPlanning = () => {
         distanceInfo,
         averageTemperature,
         budget,
+        forceUpdateDestination,
         nextStep,
         prevStep,
         disabledStartDate,

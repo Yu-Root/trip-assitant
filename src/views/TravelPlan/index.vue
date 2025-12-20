@@ -129,6 +129,8 @@ import Nav from '@/components/Nav/index.vue'
 import CityInfo from './components/cityInfo.vue';
 import { reactive, ref } from 'vue';
 
+import { bus } from '@/utils/mitt';
+
 const router = useRouter()
 
 const dialogVisible = ref(false)
@@ -149,6 +151,8 @@ const openInfo = (city) => {
 
 const handleConfirm = (cityName) => {
     console.log(cityName)
+    router.push('/plan_page')
+    bus.emit("cityName", cityName)
 }
 
 const GoToPlan = () => {

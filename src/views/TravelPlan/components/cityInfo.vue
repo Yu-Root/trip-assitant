@@ -84,9 +84,10 @@ const handleCancel = () => {
     }
 
     .city-desc {
-        text-align: center;
         height: 100px;
-        line-height: 100px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 }
 </style>

@@ -211,6 +211,9 @@ import { useTripPlanning } from '@/views/PlanPage/Methods/useTripPlanning'
 import { Close } from '@element-plus/icons-vue'
 import { useRouter } from 'vue-router'
 
+import { bus } from '@/utils/mitt'
+import { nextTick } from 'vue'
+
 const router = useRouter()
 
 const goToHome = () => {
@@ -229,6 +232,7 @@ const {
     distanceInfo,
     averageTemperature,
     budget,
+    forceUpdateDestination,
     nextStep,
     prevStep,
     disabledStartDate,
@@ -256,6 +260,8 @@ watch(currentStep, (newVal) => {
     }
 })
 
+
+
 // 地图API加载
 onMounted(() => {
     if (!window.AMap) {
@@ -266,6 +272,10 @@ onMounted(() => {
         }
         document.head.appendChild(script)
     }
+
+    bus.on("cityName", async (cityName) => {
+        await forceUpdateDestination(cityName)
+    })
 })
 </script>
 
