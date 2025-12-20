@@ -8,6 +8,10 @@
                 <span>{{ desc }}</span>
             </div>
         </div>
+        <template #footer>
+            <el-button @click="handleCancel">取消</el-button>
+            <el-button type="primary" @click="handleConfirm">确认</el-button>
+        </template>
     </el-dialog>
 </template>
 
@@ -58,7 +62,7 @@ watch(
 const emit = defineEmits(['confirm', 'cancel'])
 
 const handleConfirm = () => {
-    emit('confirm')
+    emit('confirm', props.title)
     dialogCityInfoVisible.value = false
 }
 
@@ -68,4 +72,21 @@ const handleCancel = () => {
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.city-info {
+    display: flex;
+    gap: 20px;
+
+    .city-img {
+        width: 100px;
+        height: 100px;
+        background: red;
+    }
+
+    .city-desc {
+        text-align: center;
+        height: 100px;
+        line-height: 100px;
+    }
+}
+</style>

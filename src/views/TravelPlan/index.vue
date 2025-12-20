@@ -116,7 +116,8 @@
             </div>
         </footer>
     </div>
-    <CityInfo v-model="dialogVisible" :title="infoConfig.title" :img-url="infoConfig.imgUrl" :desc="infoConfig.desc">
+    <CityInfo v-model="dialogVisible" :title="infoConfig.title" :img-url="infoConfig.imgUrl" :desc="infoConfig.desc"
+        @confirm="handleConfirm">
     </CityInfo>
 </template>
 
@@ -144,6 +145,10 @@ const openInfo = (city) => {
     infoConfig.desc = city.desc
     dialogVisible.value = true
 
+}
+
+const handleConfirm = (cityName) => {
+    console.log(cityName)
 }
 
 const GoToPlan = () => {
