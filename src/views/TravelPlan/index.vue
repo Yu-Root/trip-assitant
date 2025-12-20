@@ -116,7 +116,7 @@
             </div>
         </footer>
     </div>
-    <CityInfo v-model="dialogVisible"></CityInfo>
+    <CityInfo v-model="dialogVisible" :title="infoConfig.title"></CityInfo>
 </template>
 
 <script setup>
@@ -125,15 +125,20 @@ import { useRouter } from 'vue-router';
 
 import Nav from '@/components/Nav/index.vue'
 import CityInfo from './components/cityInfo.vue';
-import { ref } from 'vue';
+import { reactive, ref } from 'vue';
 
 const router = useRouter()
 
 const dialogVisible = ref(false)
+const infoConfig = reactive({
+    title: ''
+})
 
-const openInfo = () => {
+const openInfo = (city) => {
+    console.log(city)
+    infoConfig.title = city.name
     dialogVisible.value = true
-    console.log(1)
+
 }
 
 const GoToPlan = () => {
