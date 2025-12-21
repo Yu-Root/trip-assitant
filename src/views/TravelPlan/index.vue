@@ -149,10 +149,9 @@ const openInfo = (city) => {
 
 }
 
-const handleConfirm = (cityName) => {
+const handleConfirm = async (cityName) => {
     console.log(cityName)
-    router.push('/plan_page')
-    bus.emit("cityName", cityName)
+    await router.push({ path: '/plan_page', query: { dest: cityName } })
 }
 
 const GoToPlan = () => {
@@ -997,7 +996,7 @@ const cities = [
                         margin-bottom: 30px;
 
                         &:last-child {
-                            margin-bottom: 40px;
+                            margin-bottom: 30px;
                         }
                     }
 

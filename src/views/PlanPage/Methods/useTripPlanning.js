@@ -30,8 +30,8 @@ export const useTripPlanning = () => {
     const forceUpdateDestination = (cityName) => {
         tripData.destination = cityName
         console.log(tripData.destination)
-        trigger(tripData, 'destination');
-        return Promise.resolve()
+        //trigger(tripData, 'destination');
+        //return Promise.resolve()
     }
 
     // 计算属性

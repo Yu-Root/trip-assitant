@@ -206,13 +206,12 @@
 </template>
 
 <script setup>
-import { onMounted, watch } from 'vue'
+import { onMounted, reactive, ref, watch, nextTick, onUnmounted } from 'vue'
 import { useTripPlanning } from '@/views/PlanPage/Methods/useTripPlanning'
 import { Close } from '@element-plus/icons-vue'
-import { useRouter } from 'vue-router'
+import { useRouter, useRoute } from 'vue-router'
 
 import { bus } from '@/utils/mitt'
-import { nextTick } from 'vue'
 
 const router = useRouter()
 
@@ -247,6 +246,8 @@ const {
     exportPDF
 } = useTripPlanning()
 
+// 使用组合式函数内的 `tripData` 作为单一数据源
+
 // 监听步骤变化
 watch(currentStep, (newVal) => {
     if (newVal === 2) {
@@ -260,8 +261,6 @@ watch(currentStep, (newVal) => {
     }
 })
 
-
-
 // 地图API加载
 onMounted(() => {
     if (!window.AMap) {
@@ -273,8 +272,19 @@ onMounted(() => {
         document.head.appendChild(script)
     }
 
-    bus.on("cityName", async (cityName) => {
+    // 监听来自 TravelPlan 的城市选择事件
+    const onCity = async (cityName) => {
         await forceUpdateDestination(cityName)
+    }
+    const route = useRoute()
+    if (route && route.query && route.query.dest) {
+        forceUpdateDestination(route.query.dest)
+    }
+    // 仍然保留事件总线监听以兼容其他调用方式
+    bus.on('cityName', onCity)
+
+    onUnmounted(() => {
+        bus.off && bus.off('cityName', onCity)
     })
 })
 </script>
