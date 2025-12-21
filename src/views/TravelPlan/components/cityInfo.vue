@@ -80,7 +80,11 @@ const handleCancel = () => {
     .city-img {
         width: 100px;
         height: 100px;
-        background: red;
+
+        img {
+            width: 100px;
+            height: 100px;
+        }
     }
 
     .city-desc {

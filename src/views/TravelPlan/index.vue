@@ -751,7 +751,7 @@ const cities = [
                         flex-wrap: wrap;
 
                         &:last-child {
-                            margin-bottom: 40px;
+                            margin-bottom: 20px;
                         }
                     }
 
@@ -997,7 +997,7 @@ const cities = [
                         margin-bottom: 30px;
 
                         &:last-child {
-                            margin-bottom: 60px;
+                            margin-bottom: 40px;
                         }
                     }
 
@@ -1007,6 +1007,7 @@ const cities = [
                         box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
                         transition: all 0.3s ease;
                         background-color: #fff;
+                        margin-bottom: 20px;
                         cursor: pointer;
 
                         &:hover {
