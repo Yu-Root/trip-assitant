@@ -10,7 +10,7 @@
         </div>
         <template #footer>
             <el-button @click="handleCancel">取消</el-button>
-            <el-button type="primary" @click="handleConfirm">确认</el-button>
+            <el-button type="primary" @click="handleConfirm">想去这里</el-button>
         </template>
     </el-dialog>
 </template>
