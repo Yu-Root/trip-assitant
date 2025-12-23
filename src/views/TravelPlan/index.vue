@@ -58,7 +58,7 @@
             </div>
             <div class="content-body">
                 <div class="search">
-                    <el-input placeholder="大家都在搜：北京">
+                    <el-input v-model="searchCity" placeholder="大家都在搜：北京">
                         <template #prefix>
                             <el-icon>
                                 <Search />
@@ -139,6 +139,8 @@ const infoConfig = reactive({
     imgUrl: '',
     desc: ''
 })
+
+const searchCity = ref('')
 
 const openInfo = (city) => {
     console.log(city)
