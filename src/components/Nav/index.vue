@@ -17,7 +17,7 @@
                     <div>
                         尊敬的
                     </div>
-                    <div class="avatar">
+                    <div class="avatar" @click="GoToPages('/user')">
                         <el-avatar :size="20" :src="userStore.imageUrl" />
                     </div>
                     <div>
@@ -102,6 +102,10 @@ const GoToPages = (path) => {
 
                 .avatar {
                     margin-left: 8px;
+
+                    :hover {
+                        cursor: pointer;
+                    }
                 }
             }
 
