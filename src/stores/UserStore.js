@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
 import { ref, reactive } from 'vue'
 import { getUserInfo } from '@/api/userinfo'
+import { saveLoginState, getLoginState, clearLoginState } from '@/utils/auth'
 
 export const useUserStore = defineStore('User', () => {
     const id = ref('')
@@ -9,6 +10,25 @@ export const useUserStore = defineStore('User', () => {
     const sex = ref('')
     const account = ref('')
     const email = ref('')
+    const token = ref('')
+    const refreshToken = ref('')
+    const expiresAt = ref(0)
+
+    // 初始化时从本地存储恢复登录状态
+    const initLoginState = () => {
+        const loginState = getLoginState()
+        if (loginState) {
+            id.value = loginState.userInfo.id
+            imageUrl.value = loginState.userInfo.image_url
+            name.value = loginState.userInfo.name
+            sex.value = loginState.userInfo.sex
+            account.value = loginState.userInfo.account
+            email.value = loginState.userInfo.email
+            token.value = loginState.token
+            refreshToken.value = loginState.refreshToken
+            expiresAt.value = loginState.expiresAt
+        }
+    }
 
     const fetchUserInfo = async (id) => {
         //console.log('传入的ID:', id)
@@ -24,6 +44,39 @@ export const useUserStore = defineStore('User', () => {
         }
     }
 
+    // 保存登录状态
+    const saveUserState = (userInfo, tokenValue, refreshTokenValue) => {
+        id.value = userInfo.id
+        imageUrl.value = userInfo.image_url
+        name.value = userInfo.name
+        sex.value = userInfo.sex
+        account.value = userInfo.account
+        email.value = userInfo.email
+        token.value = tokenValue
+        refreshToken.value = refreshTokenValue
+        expiresAt.value = Date.now() + 3600 * 1000
+        saveLoginState(userInfo, tokenValue, refreshTokenValue)
+    }
+
+    // 清除登录状态
+    const clearUserState = () => {
+        id.value = ''
+        imageUrl.value = ''
+        name.value = ''
+        sex.value = ''
+        account.value = ''
+        email.value = ''
+        token.value = ''
+        refreshToken.value = ''
+        expiresAt.value = 0
+        clearLoginState()
+    }
+
+    // 检查是否已登录
+    const isLoggedIn = () => {
+        return !!token.value && expiresAt.value > Date.now()
+    }
+
     return {
         imageUrl,
         name,
@@ -31,7 +84,14 @@ export const useUserStore = defineStore('User', () => {
         account,
         email,
         id,
-        fetchUserInfo
+        token,
+        refreshToken,
+        expiresAt,
+        fetchUserInfo,
+        initLoginState,
+        saveUserState,
+        clearUserState,
+        isLoggedIn
     }
 }, {
     persist: true
